@@ -1,0 +1,33 @@
+.nav-bar {
+    display:flex;
+    align-items: center;
+    background-color: #d7d7d7;
+    color: black;
+    font-size:30px;
+    border-bottom: 1px grey solid;
+}
+
+a {
+  color: #555;
+}
+
+.nav-item {
+    padding-left: 40px;
+}
+
+.nav-item:hover {
+  padding-left: 40px;
+  color: #0081cc;
+}
+
+
+
+
+a.active {
+  font-size:large;
+  border-bottom: 1px blue solid;
+}
+
+nav.navbar{
+  border-bottom: 1px grey solid;
+}

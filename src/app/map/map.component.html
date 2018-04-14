@@ -1,0 +1,7 @@
+<agm-map style="height: 500px" [latitude]="latitude" [longitude]="longitude" [fullscreenControl]="true" (zoomChange)="setZoom($event)">
+  <agm-circle [latitude]="currentLatitude" [longitude]="currentLongitude" [radius]="currentLocationRadius() * 0.55 * 0.5" [fillColor]="'#4285F4'"></agm-circle>
+  <agm-circle [latitude]="currentLatitude" [longitude]="currentLongitude" [radius]="currentLocationRadius() * 0.3 * 0.5" [fillOpacity]="1" [fillColor]="'white'"></agm-circle>
+  <agm-circle [latitude]="currentLatitude" [longitude]="currentLongitude" [radius]="currentLocationRadius() * 0.25 * 0.5" [fillOpacity]="1" [fillColor]="'#4285F4'"></agm-circle>
+</agm-map>
+<br/>
+<button class="btn btn-outline-info btn-lg" (click)="loadCurrentLocation()"><i class="fa fa-location-arrow"></i></button>
