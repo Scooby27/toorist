@@ -25,6 +25,7 @@
     "@angular/router": "^5.0.0",
     "@angular/service-worker": "^5.0.0",
     "@ng-select/ng-select": "^0.36.2",
+    "@types/googlemaps": "^3.30.8",
     "bootstrap": "^4.1.0",
     "core-js": "^2.4.1",
     "font-awesome": "^4.7.0",

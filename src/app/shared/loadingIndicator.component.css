@@ -1,8 +1,11 @@
 .loader {
     width: 40px;
     height: 40px;
-    position: relative;
-    margin: 100px auto;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -20px;
+    margin-left: -20px;
 }
 
 .double-bounce1, .double-bounce2 {

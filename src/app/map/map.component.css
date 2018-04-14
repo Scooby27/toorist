@@ -1,0 +1,10 @@
+.agm-map {
+    height: 250px;
+    width: 100%;
+}
+
+.map-current-location-btn {
+    position: fixed;
+    top: 38%;
+    left: 5%;
+}

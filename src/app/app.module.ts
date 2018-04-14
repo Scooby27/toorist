@@ -12,19 +12,18 @@ import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { appRoutes } from './routes';
 import { MapComponent } from './map/map.component';
-import { AgmCoreModule } from '@agm/core/core.module';
+import { MapModule } from './map/map.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    MapComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
     CoreModule,
     SharedModule,
+    MapModule,
     RouterModule.forRoot(appRoutes),
-    AgmCoreModule.forRoot({apiKey: 'AIzaSyDa6c-mJ82lZPB-0HOE59WquzqStIM_DOc'}),
     SharedModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
