@@ -1,13 +1,16 @@
 <agm-map class="agm-map" [latitude]="latitude" [longitude]="longitude" [fullscreenControl]="true" [zoom]="1" (zoomChange)="setZoom($event)">
-  <agm-circle [latitude]="currentLatitude" [longitude]="currentLongitude" [radius]="currentLocationRadius() * 0.55 * 0.3" [fillColor]="'#4285F4'"></agm-circle>
+  <agm-circle [latitude]="currentLatitude" [longitude]="currentLongitude" [radius]="currentLocationRadius() * 0.55 * 0.3" [fillColor]="'#4285F4'" [zIndex]="1"></agm-circle>
   <agm-circle [latitude]="currentLatitude" [longitude]="currentLongitude" [radius]="currentLocationRadius() * 0.3 * 0.3" [fillOpacity]="1"
-    [fillColor]="'white'"></agm-circle>
+    [fillColor]="'white'" [zIndex]="1"></agm-circle>
   <agm-circle [latitude]="currentLatitude" [longitude]="currentLongitude" [radius]="currentLocationRadius() * 0.25 * 0.3" [fillOpacity]="1"
-    [fillColor]="'#4285F4'"></agm-circle>
-    <agm-marker [iconUrl]="'./assets/img/flag.png'" [latitude]="53" [longitude]="-3"></agm-marker>
+    [fillColor]="'#4285F4'" [zIndex]="1"></agm-circle>
+    <agm-marker *ngFor="let location of locations" [iconUrl]="'./assets/img/flag.png'" [latitude]="location.latitude" [longitude]="location.longitude" [title]="location.city" [zIndex]="0"></agm-marker>
 </agm-map>
 <button class="btn btn-info btn-sm map-current-location-btn" (click)="loadCurrentLocation()">
   <i class="fa fa-location-arrow"></i>
 </button>
-<br/>
+<button class="btn btn-outline-primary" (click)="addLocation()">
+  <i class="fa fa-plus"></i>
+  <span>Add New Location</span>
+</button>
 <app-shared-loadingindicator *ngIf="loading"></app-shared-loadingindicator>
