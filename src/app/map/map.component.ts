@@ -22,15 +22,15 @@ export class MapComponent implements OnInit {
   bsModalRef: BsModalRef;
   locations: Array<Location>;
   localStorageId = 'toorist-locations';
+  zoom: number;
 
-  private zoom: number;
   private nextUniqueId = 0;
 
   constructor(private mapService: MapService, private toastrService: ToastrService, private modalService: BsModalService) {
   }
 
   ngOnInit(): void {
-    this.zoom = 8;
+    this.zoom = 1;
     this.locations = this.getStoredLocations();
   }
 

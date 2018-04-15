@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { IonicApp, IonicModule } from 'ionic-angular';
 
 
 import { AppComponent } from './app.component';
@@ -23,6 +24,7 @@ import { MapModule } from './map/map.module';
     CoreModule,
     SharedModule,
     MapModule,
+    IonicModule.forRoot(AppComponent),
     RouterModule.forRoot(appRoutes),
     SharedModule,
     BrowserAnimationsModule,
@@ -30,6 +32,6 @@ import { MapModule } from './map/map.module';
     environment.production ? ServiceWorkerModule.register('/ngsw-worker.js') : []
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [IonicApp]
 })
 export class AppModule { }

@@ -1,5 +1,5 @@
 <div>
-  <agm-map class="agm-map" [latitude]="latitude" [longitude]="longitude" [fullscreenControl]="true" [zoom]="1" (zoomChange)="setZoom($event)">
+  <agm-map class="agm-map" [latitude]="latitude" [longitude]="longitude" [fullscreenControl]="true" [zoom]="zoom" (zoomChange)="setZoom($event)">
     <agm-circle [latitude]="currentLatitude" [longitude]="currentLongitude" [radius]="currentLocationRadius() * 0.55 * 0.3" [fillColor]="'#4285F4'"></agm-circle>
     <agm-circle [latitude]="currentLatitude" [longitude]="currentLongitude" [radius]="currentLocationRadius() * 0.3 * 0.3" [fillOpacity]="1"
       [fillColor]="'white'"></agm-circle>
@@ -17,6 +17,9 @@
   </button>
 </div>
 <div class="locationContainer">
+  <div *ngIf="locations.length === 0" class="noLocationsText">
+    No Locations Added
+  </div>
   <app-location *ngFor="let location of locations" [location]="location" (updateLocationEmitter)="updateLocation($event)"></app-location>
 </div>
 

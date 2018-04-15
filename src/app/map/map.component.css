@@ -5,8 +5,8 @@
 
 .map-current-location-btn {
     position: fixed;
-    top: 37%;
-    left: 5%;
+    top: 37vh;
+    left: 5px;
 }
 
 .locationContainer {
@@ -16,4 +16,10 @@
 
 .addLocationButton {
     width: 100%;
+}
+
+.noLocationsText {
+    margin-top: 30%;
+    color: grey;
+    text-align: center;
 }
