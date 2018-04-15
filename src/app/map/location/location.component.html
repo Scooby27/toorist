@@ -1,54 +1,24 @@
-<!-- <div class="card">
-  <div class="card-header" style="border:  blue; color: blue;">
-    <span>
-      <i class="fa" [ngClass]="!isCollapsed ? 'fa-chevron-circle-down' : 'fa-chevron-circle-right'" (click)="toggleCollapse()"></i>
-      {{location.city}}
-    </span>
-    <div class="btn-group float-right">
-      <button class="btn btn-sm btn-info">
-        <i class="fa fa-edit"></i>
-      </button>
-      <button class="btn btn-sm btn-danger">
-        <i class="fa fa-trash" (click)="deleteLocation()"></i>
-      </button>
-    </div>
-  </div>
-  <div id="collapseOne" class="collapse" [ngbCollapse]="isCollapsed">
-    <div class="card-body">
-      <form>
-        <div class="form-group">
-          <label>You spent
-            <strong class="alert alert-warning">{{totalDays()}}</strong> days here!</label>
-        </div>
-        <hr/>
-      </form>
-    </div>
-  </div>
-</div> -->
-
-
-
 <ion-item-sliding>
   <ion-item>
-    <div class="card-header" style="color: blue;">
-      <span (click)="toggleCollapse()">
-        <i class="fa" [ngClass]="!isCollapsed ? 'fa-chevron-circle-down' : 'fa-chevron-circle-right'"></i>
-        {{location.city}}
-      </span>
-      <div class="btn-group float-right">
-        <button class="btn btn-sm btn-info">
-          <i class="fa fa-edit"></i>
-        </button>
-      </div>
-    </div>
-    <div id="collapseOne" class="collapse card-body" [ngbCollapse]="isCollapsed">
-      <form>
-        <div class="form-group">
-          <label>You spent
-            <strong class="alert alert-warning">{{totalDays()}}</strong> days here!</label>
+      <div>
+        <span (click)="toggleCollapse()">
+          <i class="fa" [ngClass]="!isCollapsed ? 'fa-chevron-circle-down' : 'fa-chevron-circle-right'"></i>
+          {{location.city}}
+        </span>
+        <div class="btn-group float-right">
+          <button class="btn btn-sm btn-info">
+            <i class="fa fa-edit"></i>
+          </button>
         </div>
-      </form>
-    </div>
+      </div>
+      <div class="collapse locationBody" [ngbCollapse]="isCollapsed">
+        <form>
+          <div>
+            <label>You spent
+              <strong class="alert alert-warning">{{totalDays()}}</strong> days here!</label>
+          </div>
+        </form>
+      </div>
   </ion-item>
 
   <ion-item-options side="right" (ionSwipe)="deleteLocation()">
