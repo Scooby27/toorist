@@ -36,6 +36,7 @@ export class MapComponent implements OnInit {
 
   loadCurrentLocation(): void {
     this.loading = true;
+    let userClick = true;
     navigator.geolocation.watchPosition((position: Position) => {
       this.loading = false;
       this.latitude = position.coords.latitude;
@@ -43,6 +44,10 @@ export class MapComponent implements OnInit {
       this.currentLatitude = position.coords.latitude;
       this.currentLongitude = position.coords.longitude;
       this.getCurrentCountry();
+      if (userClick) {
+        this.zoom = 8;
+        userClick = false;
+      }
     }, (error: PositionError) => {
       this.loading = false;
       this.toastrService.error(error.message);
@@ -106,7 +111,6 @@ export class MapComponent implements OnInit {
     this.mapService.getCountry(this.currentLatitude, this.currentLongitude).subscribe((response) => {
       if (response.status === google.maps.GeocoderStatus.OK && response.results[0] !== void 0) {
         this.currentLocation = response.results[0].formatted_address;
-        this.toastrService.success('Location set.');
       }
     }, (error) => {
       this.toastrService.error(error);

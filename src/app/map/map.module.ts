@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { AgmCoreModule } from '@agm/core/core.module';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 
 import { MapComponent } from './map.component';
 import { SharedModule } from '../shared/shared.module';
 import { MapService } from './map.service';
 import { AddLocationModalComponent } from './modals/add-location-modal/add-location-modal.component';
 import { LocationComponent } from './location/location.component';
+import { GBDateParser } from './modals/add-location-modal/gbDateParser';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,6 @@ import { LocationComponent } from './location/location.component';
     MapComponent
   ],
   entryComponents: [AddLocationModalComponent],
-  providers: [MapService]
+  providers: [MapService, {provide: NgbDateParserFormatter, useClass: GBDateParser}]
 })
 export class MapModule { }
