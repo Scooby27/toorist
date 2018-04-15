@@ -8,3 +8,8 @@
     top: 38%;
     left: 5%;
 }
+
+.locationContainer {
+    overflow-y: auto; 
+    max-height: 40vh;
+}

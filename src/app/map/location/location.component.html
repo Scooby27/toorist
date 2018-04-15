@@ -1,0 +1,15 @@
+<div class="card" style="width:100%">
+  <div class="card-header" id="headingOne" style="background:  blue; color: white;">
+    <span>
+      <i class="fa" [ngClass]="!isCollapsed ? 'fa-chevron-circle-down' : 'fa-chevron-circle-right'" (click)="toggleCollapse()"></i>
+      {{location.city}}
+    </span>
+    <button class="btn btn-danger float-right">
+      <i class="fa fa-trash" (click)="deleteLocation()"></i>
+    </button>
+  </div>
+  <div id="collapseOne" class="collapse" [ngbCollapse]="isCollapsed">
+    <div class="card-body">
+    </div>
+  </div>
+</div>

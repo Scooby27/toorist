@@ -2,7 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 
-import { Location } from '../location';
+import { Location } from '../../location';
 
 @Component({
   selector: 'app-add-location-modal',

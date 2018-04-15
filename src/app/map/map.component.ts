@@ -5,7 +5,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
 import { MapService } from './map.service';
 import { Location } from './location';
-import { AddLocationModalComponent } from './add-location-modal/add-location-modal.component';
+import { AddLocationModalComponent } from './modals/add-location-modal/add-location-modal.component';
 
 @Component({
   selector: 'app-map',
@@ -24,6 +24,7 @@ export class MapComponent implements OnInit {
   localStorageId = 'toorist-locations';
 
   private zoom: number;
+  private nextUniqueId = 0;
 
   constructor(private mapService: MapService, private toastrService: ToastrService, private modalService: BsModalService) {
   }
@@ -63,15 +64,38 @@ export class MapComponent implements OnInit {
     this.bsModalRef = this.modalService.show(AddLocationModalComponent);
     const modalComponent = (<AddLocationModalComponent>this.bsModalRef.content);
     modalComponent.addLocationEmitter.subscribe((location: Location) => {
+      location.id = this.nextUniqueId++;
       this.locations.push(location);
       this.setStoredLocations(this.locations);
       this.toastrService.success(location.city + ' has been added to your visited locations!');
     });
   }
 
+  updateLocation(location: Location): void {
+    if (location.deleted) {
+      this.deleteLocation(location);
+    } else {
+      // TODO update
+    }
+  }
+
+  private deleteLocation(location: Location): void {
+    for (let i = 0; i < this.locations.length; i++) {
+      if (this.locations[i].id === location.id) {
+        this.locations.splice(i, 1);
+        this.setStoredLocations(this.locations);
+        this.toastrService.success(location.city + ' has been deleted.');
+        break;
+      }
+    }
+  }
+
   private getStoredLocations(): Array<Location> {
-    const storedLocations = localStorage.getItem(this.localStorageId);
-    return storedLocations === null ? [] : JSON.parse(storedLocations);
+    const storedLocations = JSON.parse(localStorage.getItem(this.localStorageId));
+    for (let i = 0 ; i < storedLocations.length; i++) {
+      this.nextUniqueId = storedLocations[i].id >= this.nextUniqueId ? storedLocations[i].id + 1 : this.nextUniqueId;
+    }
+    return storedLocations === null ? [] : storedLocations;
   }
 
   private setStoredLocations(storedLocations: Array<Location>): void {

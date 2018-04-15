@@ -1,4 +1,5 @@
 export class Location {
+    id: number;
     latitude: number;
     longitude: number;
     city: string;
@@ -7,4 +8,5 @@ export class Location {
     currency: string;
     startDate: Date;
     endDate: Date;
+    deleted: boolean;
 }

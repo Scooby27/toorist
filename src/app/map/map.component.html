@@ -13,4 +13,7 @@
   <i class="fa fa-plus"></i>
   <span>Add New Location</span>
 </button>
+<div class="locationContainer">
+  <app-location *ngFor="let location of locations" [location]="location" (updateLocationEmitter)="updateLocation($event)"></app-location>
+</div>
 <app-shared-loadingindicator *ngIf="loading"></app-shared-loadingindicator>
