@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { AgmCoreModule } from '@agm/core/core.module';
 import { NgbModule, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+import { IonicModule } from 'ionic-angular/module';
 
 import { MapComponent } from './map.component';
 import { SharedModule } from '../shared/shared.module';
@@ -18,6 +19,7 @@ import { GBDateParser } from './modals/add-location-modal/gbDateParser';
   imports: [
     SharedModule,
     NgbModule.forRoot(),
+    IonicModule.forRoot(LocationComponent),
     AgmCoreModule.forRoot({apiKey: 'AIzaSyDa6c-mJ82lZPB-0HOE59WquzqStIM_DOc', libraries: ['places']})
   ],
   exports: [

@@ -39,9 +39,7 @@ export class AddLocationModalComponent implements OnInit {
       location.endDateMilliseconds = this.ngbDateStructToDate(this.endDate).getTime();
       this.addLocationEmitter.emit(location);
       this.addMore = true;
-      const input = this.getAutoCompleteInputElement();
-      input.value = '';
-      input.textContent = '';
+      this.reset();
     } else {
       this.toastrService.error('Oops! You have missed some information!');
     }
@@ -55,6 +53,14 @@ export class AddLocationModalComponent implements OnInit {
     } else if (!isStartDateChange && end < start || this.startDate === void 0) {
       this.startDate = this.endDate;
     }
+  }
+
+  private reset(): void {
+    const input = this.getAutoCompleteInputElement();
+    input.value = '';
+    input.textContent = '';
+    this.startDate = null;
+    this.endDate = null;
   }
 
   private ngbDateStructToDate(ngbDate: NgbDateStruct): Date {

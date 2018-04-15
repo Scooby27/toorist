@@ -28,7 +28,7 @@ import { MapModule } from './map/map.module';
     RouterModule.forRoot(appRoutes),
     SharedModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot({positionClass: 'toast-bottom-center'}),
     environment.production ? ServiceWorkerModule.register('/ngsw-worker.js') : []
   ],
   providers: [],
