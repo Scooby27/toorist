@@ -15,6 +15,12 @@
   </div>
   <div id="collapseOne" class="collapse" [ngbCollapse]="isCollapsed">
     <div class="card-body">
+      <form>
+        <div class="form-group">
+          <label>You spent <strong class="alert alert-warning">{{totalDays()}}</strong>  days here!</label>
+        </div>
+        <hr/>
+      </form>
     </div>
   </div>
 </div>

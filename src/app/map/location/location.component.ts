@@ -21,4 +21,8 @@ export class LocationComponent {
     this.updateLocationEmitter.emit(this.location);
   }
 
+  totalDays(): number {
+    return Math.ceil((this.location.endDateMilliseconds - this.location.startDateMilliseconds) / (1000 * 60 * 60 * 24));
+  }
+
 }

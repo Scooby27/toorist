@@ -1,3 +1,5 @@
+import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap/datepicker/ngb-date-struct';
+
 export class Location {
     id: number;
     latitude: number;
@@ -6,7 +8,8 @@ export class Location {
     countryName: string;
     countryCode: string;
     currency: string;
-    startDate: Date;
-    endDate: Date;
+    startDateMilliseconds: number;
+    endDateMilliseconds: number;
     deleted: boolean;
+    selected: boolean;
 }

@@ -70,7 +70,12 @@ export class MapComponent implements OnInit {
     const modalComponent = (<AddLocationModalComponent>this.bsModalRef.content);
     modalComponent.addLocationEmitter.subscribe((location: Location) => {
       location.id = this.nextUniqueId++;
-      this.locations.push(location);
+      const oldLocations = Object.assign([], this.locations);
+      oldLocations.push(location);
+      oldLocations.sort((a, b) => {
+        return a.city < b.city ? -1 : 1;
+      });
+      this.locations = Object.assign([], oldLocations);
       this.setStoredLocations(this.locations);
       this.toastrService.success(location.city + ' has been added to your visited locations!');
     });
@@ -96,11 +101,12 @@ export class MapComponent implements OnInit {
   }
 
   private getStoredLocations(): Array<Location> {
-    const storedLocations = JSON.parse(localStorage.getItem(this.localStorageId));
+    let storedLocations = JSON.parse(localStorage.getItem(this.localStorageId));
+    storedLocations = storedLocations === null ? [] : storedLocations;
     for (let i = 0 ; i < storedLocations.length; i++) {
       this.nextUniqueId = storedLocations[i].id >= this.nextUniqueId ? storedLocations[i].id + 1 : this.nextUniqueId;
     }
-    return storedLocations === null ? [] : storedLocations;
+    return storedLocations;
   }
 
   private setStoredLocations(storedLocations: Array<Location>): void {

@@ -5,15 +5,15 @@
 
 .map-current-location-btn {
     position: fixed;
-    top: 44%;
+    top: 37%;
     left: 5%;
 }
 
 .locationContainer {
-    overflow-y: auto; 
-    max-height: 40vh;
+    overflow-y: scroll;
+    height: 50vh;
 }
 
 .addLocationButton {
-    margin: 1%;
+    width: 100%;
 }
