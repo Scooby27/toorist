@@ -6,14 +6,14 @@ import { IonicModule } from 'ionic-angular/module';
 import { MapComponent } from './map.component';
 import { SharedModule } from '../shared/shared.module';
 import { MapService } from './map.service';
-import { AddLocationModalComponent } from './modals/add-location-modal/add-location-modal.component';
+import { LocationModalComponent } from './modals/location-modal/location-modal.component';
 import { LocationComponent } from './location/location.component';
-import { GBDateParser } from './modals/add-location-modal/gbDateParser';
+import { GBDateParser } from './modals/location-modal/gbDateParser';
 
 @NgModule({
   declarations: [
     MapComponent,
-    AddLocationModalComponent,
+    LocationModalComponent,
     LocationComponent
   ],
   imports: [
@@ -25,7 +25,7 @@ import { GBDateParser } from './modals/add-location-modal/gbDateParser';
   exports: [
     MapComponent
   ],
-  entryComponents: [AddLocationModalComponent],
+  entryComponents: [LocationModalComponent],
   providers: [MapService, {provide: NgbDateParserFormatter, useClass: GBDateParser}]
 })
 export class MapModule { }

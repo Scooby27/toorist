@@ -4,17 +4,20 @@ import { ToastrService } from 'ngx-toastr';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap/datepicker/ngb-date-struct';
 
 import { Location } from '../../location';
+import { NgbDateStructAdapter } from '@ng-bootstrap/ng-bootstrap/datepicker/ngb-date-adapter';
 
 @Component({
-  selector: 'app-add-location-modal',
-  templateUrl: './add-location-modal.component.html',
-  styleUrls: ['./add-location-modal.component.css']
+  selector: 'app-location-modal',
+  templateUrl: './location-modal.component.html',
+  styleUrls: ['./location-modal.component.css']
 })
-export class AddLocationModalComponent implements OnInit {
+export class LocationModalComponent implements OnInit {
   @Output() addLocationEmitter = new EventEmitter<Location>();
   addMore = false;
   startDate: NgbDateStruct;
   endDate: NgbDateStruct;
+  title = 'Add Location';
+  submitLabel = 'Add';
 
   private autoComplete: google.maps.places.Autocomplete;
   constructor(private bsModalRef: BsModalRef, private toastrService: ToastrService) { }
@@ -53,6 +56,22 @@ export class AddLocationModalComponent implements OnInit {
     } else if (!isStartDateChange && end < start || this.startDate === void 0) {
       this.startDate = this.endDate;
     }
+  }
+
+  setLocation(location: Location): void {
+    this.getAutoCompleteInputElement().value = location.city;
+    const start = new Date(location.startDateMilliseconds);
+    this.startDate = {
+      year: start.getFullYear(),
+      month: start.getMonth() + 1,
+      day: start.getDate()
+    };
+    const end = new Date(location.endDateMilliseconds);
+    this.endDate = {
+      year: end.getFullYear(),
+      month: end.getMonth() + 1,
+      day: end.getDate()
+    };
   }
 
   private reset(): void {

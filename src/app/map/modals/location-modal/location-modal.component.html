@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <h4 class="modal-title pull-left">Add Location</h4>
+  <h4 class="modal-title pull-left">{{title}}</h4>
   <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
     <span aria-hidden="true">&times;</span>
   </button>
@@ -47,5 +47,5 @@
 </div>
 <div class="modal-footer">
   <button type="button" class="btn btn-light" (click)="bsModalRef.hide()">Cancel</button>
-  <button type="button" class="btn btn-primary" (click)="addLocation()">Add</button>
+  <button type="button" class="btn btn-primary" (click)="addLocation()">{{submitLabel}}</button>
 </div>

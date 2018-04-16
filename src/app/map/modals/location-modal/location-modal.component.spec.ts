@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AddLocationModalComponent } from './add-location-modal.component';
+import { LocationModalComponent } from './location-modal.component';
 
-describe('AddLocationModalComponent', () => {
-  let component: AddLocationModalComponent;
-  let fixture: ComponentFixture<AddLocationModalComponent>;
+describe('LocationModalComponent', () => {
+  let component: LocationModalComponent;
+  let fixture: ComponentFixture<LocationModalComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AddLocationModalComponent ]
+      declarations: [ LocationModalComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AddLocationModalComponent);
+    fixture = TestBed.createComponent(LocationModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

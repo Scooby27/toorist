@@ -5,7 +5,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
 import { MapService } from './map.service';
 import { Location } from './location';
-import { AddLocationModalComponent } from './modals/add-location-modal/add-location-modal.component';
+import { LocationModalComponent } from './modals/location-modal/location-modal.component';
 
 @Component({
   selector: 'app-map',
@@ -66,8 +66,8 @@ export class MapComponent implements OnInit {
   }
 
   addLocation(): void {
-    this.bsModalRef = this.modalService.show(AddLocationModalComponent);
-    const modalComponent = (<AddLocationModalComponent>this.bsModalRef.content);
+    this.bsModalRef = this.modalService.show(LocationModalComponent);
+    const modalComponent = (<LocationModalComponent>this.bsModalRef.content);
     modalComponent.addLocationEmitter.subscribe((location: Location) => {
       location.id = this.nextUniqueId++;
       const oldLocations = Object.assign([], this.locations);
@@ -85,7 +85,14 @@ export class MapComponent implements OnInit {
     if (location.deleted) {
       this.deleteLocation(location);
     } else {
-      // TODO update
+      for (let i = 0; i < this.locations.length; i++) {
+        if (this.locations[i].id === location.id) {
+          this.locations[i] = Object.assign({}, location);
+          this.setStoredLocations(this.locations);
+          this.toastrService.success('Your trip to ' + location.city + ' has been updated!');
+          break;
+        }
+      }
     }
   }
 

@@ -1,24 +1,22 @@
 <ion-item-sliding>
   <ion-item>
-      <div>
-        <span (click)="toggleCollapse()">
-          <i class="fa" [ngClass]="!isCollapsed ? 'fa-chevron-circle-down' : 'fa-chevron-circle-right'"></i>
-          {{location.city}}
-        </span>
-        <div class="btn-group float-right">
-          <button class="btn btn-sm btn-info">
-            <i class="fa fa-edit"></i>
-          </button>
+    <div>
+      <span (click)="toggleCollapse()">
+        <i class="fa" [ngClass]="!isCollapsed ? 'fa-chevron-circle-down' : 'fa-chevron-circle-right'"></i>
+        {{location.city}}
+      </span>
+      <button class="btn btn-lg btn-info float-right" (click)="edit()">
+        <i class="fa fa-edit"></i>
+      </button>
+    </div>
+    <div class="collapse locationBody" [ngbCollapse]="isCollapsed">
+      <form>
+        <div>
+          <label>You spent
+            <strong class="alert alert-warning">{{totalDays()}}</strong> days here!</label>
         </div>
-      </div>
-      <div class="collapse locationBody" [ngbCollapse]="isCollapsed">
-        <form>
-          <div>
-            <label>You spent
-              <strong class="alert alert-warning">{{totalDays()}}</strong> days here!</label>
-          </div>
-        </form>
-      </div>
+      </form>
+    </div>
   </ion-item>
 
   <ion-item-options side="right" (ionSwipe)="deleteLocation()">
