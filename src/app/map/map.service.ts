@@ -11,7 +11,7 @@ export class MapService {
 
     }
 
-    getCountry(latitude: number, longitude: number): Observable<GeocoderResponse> {
+    getLocation(latitude: number, longitude: number): Observable<GeocoderResponse> {
         return this.http.get<GeocoderResponse>('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latitude + ',' + longitude);
     }
 }

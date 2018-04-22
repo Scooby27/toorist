@@ -93,7 +93,7 @@ export class MapComponent implements OnInit {
       this.loading = false;
       this.currentLatitude = position.coords.latitude;
       this.currentLongitude = position.coords.longitude;
-      this.getCurrentCountry();
+      this.updateCurrentLocation();
     });
   }
 
@@ -121,10 +121,12 @@ export class MapComponent implements OnInit {
     localStorage.setItem(this.localStorageId, JSON.stringify(storedLocations));
   }
 
-  private getCurrentCountry(): void {
-    this.mapService.getCountry(this.currentLatitude, this.currentLongitude).subscribe((response) => {
+  private updateCurrentLocation(): void {
+    this.mapService.getLocation(this.currentLatitude, this.currentLongitude).subscribe((response) => {
       if (response.status === google.maps.GeocoderStatus.OK && response.results[0] !== void 0) {
         this.currentLocation = response.results[0].formatted_address;
+      } else {
+        this.toastrService.error('uh oh');
       }
     }, (error) => {
       this.toastrService.error(error);
