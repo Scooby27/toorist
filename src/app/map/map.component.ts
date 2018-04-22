@@ -3,6 +3,7 @@ import { ToastrService } from 'ngx-toastr';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { Geolocation, Geoposition } from '@ionic-native/geolocation';
+import { LatLngLiteral } from '@agm/core/map-types';
 
 import { MapService } from './map.service';
 import { Location } from './location';
@@ -37,23 +38,13 @@ export class MapComponent implements OnInit {
   ngOnInit(): void {
     this.zoom = 1;
     this.locations = this.getStoredLocations();
+    this.loadCurrentLocation();
   }
 
-  loadCurrentLocation(): void {
-    this.loading = true;
-    let userClick = true;
-    this.geolocation.watchPosition().subscribe((position: Geoposition) => {
-      this.loading = false;
-      this.latitude = position.coords.latitude;
-      this.longitude = position.coords.longitude;
-      this.currentLatitude = position.coords.latitude;
-      this.currentLongitude = position.coords.longitude;
-      this.getCurrentCountry();
-      if (userClick) {
-        this.zoom = 8;
-        userClick = false;
-      }
-    });
+  goToCurrentLocation(): void {
+    this.latitude = this.currentLatitude;
+    this.longitude = this.currentLongitude;
+    this.zoom = 8;
   }
 
   addLocation(): void {
@@ -85,6 +76,25 @@ export class MapComponent implements OnInit {
         }
       }
     }
+  }
+
+  updateMapCoordinates(coordinates: LatLngLiteral): void {
+    this.longitude = coordinates.lng;
+    this.latitude = coordinates.lat;
+  }
+
+  updateZoom(zoom: number): void {
+    this.zoom = zoom;
+  }
+
+  private loadCurrentLocation(): void {
+    this.loading = true;
+    this.geolocation.watchPosition().subscribe((position: Geoposition) => {
+      this.loading = false;
+      this.currentLatitude = position.coords.latitude;
+      this.currentLongitude = position.coords.longitude;
+      this.getCurrentCountry();
+    });
   }
 
   private deleteLocation(location: Location): void {
