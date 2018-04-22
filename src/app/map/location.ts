@@ -12,4 +12,5 @@ export class Location {
     endDateMilliseconds: number;
     deleted: boolean;
     selected: boolean;
+    defaultPlace: google.maps.places.PlaceResult;
 }

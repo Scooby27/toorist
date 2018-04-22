@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import { Geolocation, Geoposition } from '@ionic-native/geolocation';
 
 import { MapService } from './map.service';
 import { Location } from './location';
@@ -26,7 +27,11 @@ export class MapComponent implements OnInit {
 
   private nextUniqueId = 0;
 
-  constructor(private mapService: MapService, private toastrService: ToastrService, private modalService: BsModalService) {
+  constructor(
+    private mapService: MapService,
+    private toastrService: ToastrService,
+    private modalService: BsModalService,
+    private geolocation: Geolocation) {
   }
 
   ngOnInit(): void {
@@ -37,7 +42,7 @@ export class MapComponent implements OnInit {
   loadCurrentLocation(): void {
     this.loading = true;
     let userClick = true;
-    navigator.geolocation.watchPosition((position: Position) => {
+    this.geolocation.watchPosition().subscribe((position: Geoposition) => {
       this.loading = false;
       this.latitude = position.coords.latitude;
       this.longitude = position.coords.longitude;
@@ -48,21 +53,7 @@ export class MapComponent implements OnInit {
         this.zoom = 8;
         userClick = false;
       }
-    }, (error: PositionError) => {
-      this.loading = false;
-      this.toastrService.error(error.message);
-    },
-      { timeout: 10000, maximumAge: 75000 }
-    );
-  }
-
-  setZoom(zoom: number): void {
-    this.zoom = zoom;
-  }
-
-  currentLocationRadius(): number {
-    const p = Math.pow(2, (21 - this.zoom));
-    return p * 1128.497220 * 0.0027;
+    });
   }
 
   addLocation(): void {
@@ -110,7 +101,7 @@ export class MapComponent implements OnInit {
   private getStoredLocations(): Array<Location> {
     let storedLocations = JSON.parse(localStorage.getItem(this.localStorageId));
     storedLocations = storedLocations === null ? [] : storedLocations;
-    for (let i = 0 ; i < storedLocations.length; i++) {
+    for (let i = 0; i < storedLocations.length; i++) {
       this.nextUniqueId = storedLocations[i].id >= this.nextUniqueId ? storedLocations[i].id + 1 : this.nextUniqueId;
     }
     return storedLocations;
@@ -120,7 +111,7 @@ export class MapComponent implements OnInit {
     localStorage.setItem(this.localStorageId, JSON.stringify(storedLocations));
   }
 
-  private getCurrentCountry (): void {
+  private getCurrentCountry(): void {
     this.mapService.getCountry(this.currentLatitude, this.currentLongitude).subscribe((response) => {
       if (response.status === google.maps.GeocoderStatus.OK && response.results[0] !== void 0) {
         this.currentLocation = response.results[0].formatted_address;

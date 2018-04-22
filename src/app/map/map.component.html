@@ -1,11 +1,7 @@
 <div>
-  <agm-map class="agm-map" [latitude]="latitude" [longitude]="longitude" [fullscreenControl]="true" [zoom]="zoom" (zoomChange)="setZoom($event)">
-    <agm-circle [latitude]="currentLatitude" [longitude]="currentLongitude" [radius]="currentLocationRadius() * 0.55 * 0.3" [fillColor]="'#4285F4'"></agm-circle>
-    <agm-circle [latitude]="currentLatitude" [longitude]="currentLongitude" [radius]="currentLocationRadius() * 0.3 * 0.3" [fillOpacity]="1"
-      [fillColor]="'white'"></agm-circle>
-    <agm-circle [latitude]="currentLatitude" [longitude]="currentLongitude" [radius]="currentLocationRadius() * 0.25 * 0.3" [fillOpacity]="1"
-      [fillColor]="'#4285F4'"></agm-circle>
-    <agm-marker *ngFor="let location of locations" [iconUrl]="'./assets/img/flag.png'" [latitude]="location.latitude" [longitude]="location.longitude"
+  <agm-map class="agm-map" [latitude]="latitude" [longitude]="longitude" [fullscreenControl]="true" [zoom]="zoom">
+    <agm-marker [iconUrl]="'./assets/img/currentLocationIcon.png'" [latitude]="currentLatitude" [longitude]="currentLongitude"></agm-marker>
+    <agm-marker *ngFor="let location of locations" [iconUrl]="'./assets/img/flagIcon.png'" [latitude]="location.latitude" [longitude]="location.longitude"
       [title]="location.city"></agm-marker>
   </agm-map>
   <button ion-item detail-none color="primary" class="addLocationButton" (click)="addLocation()">

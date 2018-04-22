@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { AgmCoreModule } from '@agm/core/core.module';
 import { NgbModule, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { IonicModule } from 'ionic-angular/module';
+import { Geolocation } from '@ionic-native/geolocation';
 
 import { MapComponent } from './map.component';
 import { SharedModule } from '../shared/shared.module';
@@ -26,6 +27,6 @@ import { GBDateParser } from './modals/location-modal/gbDateParser';
     MapComponent
   ],
   entryComponents: [LocationModalComponent],
-  providers: [MapService, {provide: NgbDateParserFormatter, useClass: GBDateParser}]
+  providers: [MapService, Geolocation, {provide: NgbDateParserFormatter, useClass: GBDateParser}]
 })
 export class MapModule { }

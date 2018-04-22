@@ -18,6 +18,7 @@ export class LocationModalComponent implements OnInit {
   endDate: NgbDateStruct;
   title = 'Add Location';
   submitLabel = 'Add';
+  defaultPlace: google.maps.places.PlaceResult;
 
   private autoComplete: google.maps.places.Autocomplete;
   constructor(private bsModalRef: BsModalRef, private toastrService: ToastrService) { }
@@ -32,7 +33,8 @@ export class LocationModalComponent implements OnInit {
   }
 
   addLocation(): void {
-    const placeResult = this.autoComplete.getPlace();
+    let placeResult = this.autoComplete.getPlace();
+    placeResult = placeResult === void 0 ? this.defaultPlace : placeResult;
     if (placeResult !== void 0 && this.startDate !== void 0 &&  this.endDate !== void 0) {
       const location = new Location();
       location.city = placeResult.name;
@@ -40,6 +42,7 @@ export class LocationModalComponent implements OnInit {
       location.longitude = placeResult.geometry.location.lng();
       location.startDateMilliseconds = this.ngbDateStructToDate(this.startDate).getTime();
       location.endDateMilliseconds = this.ngbDateStructToDate(this.endDate).getTime();
+      location.defaultPlace = placeResult;
       this.addLocationEmitter.emit(location);
       this.addMore = true;
       this.reset();
@@ -59,7 +62,8 @@ export class LocationModalComponent implements OnInit {
   }
 
   setLocation(location: Location): void {
-    this.getAutoCompleteInputElement().value = location.city;
+    const autocomplete = this.getAutoCompleteInputElement();
+    autocomplete.value = location.city;
     const start = new Date(location.startDateMilliseconds);
     this.startDate = {
       year: start.getFullYear(),
@@ -72,6 +76,7 @@ export class LocationModalComponent implements OnInit {
       month: end.getMonth() + 1,
       day: end.getDate()
     };
+    this.defaultPlace = location.defaultPlace;
   }
 
   private reset(): void {
