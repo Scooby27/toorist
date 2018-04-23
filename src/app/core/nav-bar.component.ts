@@ -1,4 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { App } from 'ionic-angular/components/app/app';
+
+import { MapComponent } from '../map/map.component';
+import { HomeComponent } from '../shared/home.component';
 
 @Component({
   selector: 'app-nav-bar',
@@ -6,5 +10,20 @@ import { Component } from '@angular/core';
   templateUrl: './nav-bar.component.html'
 })
 
-export class NavBarComponent  {
+export class NavBarComponent implements OnInit {
+  components;
+
+  constructor(private appCtrl: App) {
+  }
+
+  ngOnInit(): void {
+    this.components = {
+      home: HomeComponent,
+      map: MapComponent
+    };
+  }
+
+  navigateTo(component): void {
+    this.appCtrl.getRootNav().push(component);
+  }
 }

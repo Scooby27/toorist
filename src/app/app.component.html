@@ -1,7 +1,7 @@
-<div class="app">
+<ion-header>
   <app-nav-bar></app-nav-bar>
-  <div class="main">
-    <router-outlet></router-outlet>
-    <app-shared-loadingindicator *ngIf="show"></app-shared-loadingindicator>
-  </div>
-</div>
+</ion-header>
+<ion-content>
+  <ion-nav [root]="rootPage"></ion-nav>
+  <app-shared-loadingindicator *ngIf="show"></app-shared-loadingindicator>
+</ion-content>

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { ModalModule, BsModalService } from 'ngx-bootstrap/modal';
+import { IonicModule } from 'ionic-angular';
 
 import { ErrorComponent } from './error.component';
 import { HomeComponent } from './home.component';
@@ -19,8 +19,8 @@ import { LoadingService } from './loading.service';
     CommonModule,
     NgSelectModule,
     FormsModule,
-    ReactiveFormsModule,
-    ModalModule.forRoot()
+    IonicModule,
+    ReactiveFormsModule
   ],
   exports: [
     HomeComponent,
@@ -29,8 +29,8 @@ import { LoadingService } from './loading.service';
     NgSelectModule,
     FormsModule,
     ReactiveFormsModule,
-    ModalModule,
     LoadingIndicatorComponent],
-  providers: [LoadingService, BsModalService]
+  entryComponents: [HomeComponent],
+  providers: [LoadingService]
 })
 export class SharedModule { }

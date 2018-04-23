@@ -26,7 +26,7 @@ import { LocationComponent } from './location/location.component';
   exports: [
     MapComponent
   ],
-  entryComponents: [LocationModalComponent],
+  entryComponents: [MapComponent, LocationModalComponent],
   providers: [MapService, Geolocation, DatePicker]
 })
 export class MapModule { }
