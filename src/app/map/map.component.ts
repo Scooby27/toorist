@@ -36,7 +36,7 @@ export class MapComponent implements OnInit {
   ngOnInit(): void {
     this.zoom = 2;
     this.locations = this.getStoredLocations();
-    // this.loadCurrentLocation();
+    this.loadCurrentLocation();
   }
 
   goToCurrentLocation(): void {
