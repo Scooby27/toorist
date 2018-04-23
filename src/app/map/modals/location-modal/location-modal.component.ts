@@ -1,29 +1,32 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { BsModalRef } from 'ngx-bootstrap/modal';
+import { Component, AfterViewInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap/datepicker/ngb-date-struct';
+import { NavParams } from 'ionic-angular/navigation/nav-params';
+import { ViewController } from 'ionic-angular/navigation/view-controller';
+import { DatePicker } from '@ionic-native/date-picker';
 
 import { Location } from '../../location';
-import { NgbDateStructAdapter } from '@ng-bootstrap/ng-bootstrap/datepicker/ngb-date-adapter';
 
 @Component({
   selector: 'app-location-modal',
   templateUrl: './location-modal.component.html',
   styleUrls: ['./location-modal.component.css']
 })
-export class LocationModalComponent implements OnInit {
-  @Output() addLocationEmitter = new EventEmitter<Location>();
+export class LocationModalComponent implements AfterViewInit {
   addMore = false;
-  startDate: NgbDateStruct;
-  endDate: NgbDateStruct;
-  title = 'Add Location';
-  submitLabel = 'Add';
+  startDate: string;
+  endDate: string;
+  title: string;
+  submitLabel: string;
   defaultPlace: google.maps.places.PlaceResult;
 
   private autoComplete: google.maps.places.Autocomplete;
-  constructor(private bsModalRef: BsModalRef, private toastrService: ToastrService) { }
 
-  ngOnInit(): void {
+  constructor(private params: NavParams, private viewCtrl: ViewController,
+    private datePicker: DatePicker, private toastrService: ToastrService) {
+  }
+
+  ngAfterViewInit(): void {
+    this.setInputParameters();
     const options = {
       types: ['(cities)']
     };
@@ -40,10 +43,10 @@ export class LocationModalComponent implements OnInit {
       location.city = placeResult.name;
       location.latitude = placeResult.geometry.location.lat();
       location.longitude = placeResult.geometry.location.lng();
-      location.startDateMilliseconds = this.ngbDateStructToDate(this.startDate).getTime();
-      location.endDateMilliseconds = this.ngbDateStructToDate(this.endDate).getTime();
+      location.startDateMilliseconds = new Date(this.startDate).getTime();
+      location.endDateMilliseconds = new Date(this.endDate).getTime();
       location.defaultPlace = placeResult;
-      this.addLocationEmitter.emit(location);
+      this.viewCtrl.dismiss(location);
       this.addMore = true;
       this.reset();
     } else {
@@ -52,8 +55,8 @@ export class LocationModalComponent implements OnInit {
   }
 
   updateDates(isStartDateChange: boolean): void {
-    const start = this.ngbDateStructToDate(this.startDate);
-    const end = this.ngbDateStructToDate(this.endDate);
+    const start = new Date(this.startDate);
+    const end = new Date(this.endDate);
     if (isStartDateChange && start > end || this.endDate === void 0) {
       this.endDate = this.startDate;
     } else if (!isStartDateChange && end < start || this.startDate === void 0) {
@@ -61,21 +64,26 @@ export class LocationModalComponent implements OnInit {
     }
   }
 
-  setLocation(location: Location): void {
+  closeModal(): void {
+    this.viewCtrl.dismiss();
+  }
+
+  private setInputParameters(): void {
+    this.title = <string>this.params.get('title');
+    this.submitLabel = <string>this.params.get('submitLabel');
+    const initialLocation = <Location>this.params.get('initialLocation');
+    if (initialLocation !== void 0) {
+      this.setInitialLocation(initialLocation);
+    }
+  }
+
+  private setInitialLocation(location: Location): void {
     const autocomplete = this.getAutoCompleteInputElement();
     autocomplete.value = location.city;
     const start = new Date(location.startDateMilliseconds);
-    this.startDate = {
-      year: start.getFullYear(),
-      month: start.getMonth() + 1,
-      day: start.getDate()
-    };
+    this.startDate = start.toISOString();
     const end = new Date(location.endDateMilliseconds);
-    this.endDate = {
-      year: end.getFullYear(),
-      month: end.getMonth() + 1,
-      day: end.getDate()
-    };
+    this.endDate = end.toISOString();
     this.defaultPlace = location.defaultPlace;
   }
 
@@ -83,20 +91,12 @@ export class LocationModalComponent implements OnInit {
     const input = this.getAutoCompleteInputElement();
     input.value = '';
     input.textContent = '';
-    this.startDate = null;
-    this.endDate = null;
-  }
-
-  private ngbDateStructToDate(ngbDate: NgbDateStruct): Date {
-    let result: Date = null;
-    if (ngbDate !== null && ngbDate !== void 0) {
-      result = new Date(ngbDate.year, ngbDate.month - 1, ngbDate.day);
-    }
-    return result;
+    this.startDate = '';
+    this.endDate = '';
   }
 
   private getAutoCompleteInputElement(): HTMLInputElement {
-    return <HTMLInputElement>document.getElementById('autocomplete');
+    return <HTMLInputElement>document.getElementById('autocomplete').getElementsByTagName('input')[0];
   }
 
 }

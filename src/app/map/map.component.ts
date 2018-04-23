@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { BsModalService } from 'ngx-bootstrap/modal';
-import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { Geolocation, Geoposition } from '@ionic-native/geolocation';
 import { LatLngLiteral } from '@agm/core/map-types';
+import { ModalController } from 'ionic-angular/components/modal/modal-controller';
 
 import { MapService } from './map.service';
 import { Location } from './location';
@@ -21,7 +20,6 @@ export class MapComponent implements OnInit {
   currentLongitude = 0;
   currentLocation: string;
   loading = false;
-  bsModalRef: BsModalRef;
   locations: Array<Location>;
   localStorageId = 'toorist-locations';
   zoom: number;
@@ -30,15 +28,15 @@ export class MapComponent implements OnInit {
 
   constructor(
     private mapService: MapService,
+    private modalCtrl: ModalController,
     private toastrService: ToastrService,
-    private modalService: BsModalService,
     private geolocation: Geolocation) {
   }
 
   ngOnInit(): void {
-    this.zoom = 1;
+    this.zoom = 2;
     this.locations = this.getStoredLocations();
-    this.loadCurrentLocation();
+    // this.loadCurrentLocation();
   }
 
   goToCurrentLocation(): void {
@@ -48,18 +46,25 @@ export class MapComponent implements OnInit {
   }
 
   addLocation(): void {
-    this.bsModalRef = this.modalService.show(LocationModalComponent);
-    const modalComponent = (<LocationModalComponent>this.bsModalRef.content);
-    modalComponent.addLocationEmitter.subscribe((location: Location) => {
-      location.id = this.nextUniqueId++;
-      const oldLocations = Object.assign([], this.locations);
-      oldLocations.push(location);
-      oldLocations.sort((a, b) => {
-        return a.city < b.city ? -1 : 1;
-      });
-      this.locations = Object.assign([], oldLocations);
-      this.setStoredLocations(this.locations);
-      this.toastrService.success(location.city + ' has been added to your visited locations!');
+    const locationModal = this.modalCtrl.create(
+      LocationModalComponent,
+      { title: 'Add Location', submitLabel: 'Add' }
+    );
+    locationModal.present();
+    locationModal.onWillDismiss((location: Location) => {
+      if (location !== void 0) {
+        location.id = this.nextUniqueId++;
+        const oldLocations = Object.assign([], this.locations);
+        oldLocations.push(location);
+        oldLocations.sort((a, b) => {
+          return a.city < b.city ? -1 : 1;
+        });
+        this.locations = Object.assign([], oldLocations);
+        this.setStoredLocations(this.locations);
+        this.toastrService.success(location.city + ' has been added to your visited locations!');
+        this.toastrService.info('Great! Keep adding more!');
+        this.addLocation();
+      }
     });
   }
 
