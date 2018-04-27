@@ -18,7 +18,7 @@ export class MapComponent implements OnInit {
   longitude = 0;
   currentLatitude = 0;
   currentLongitude = 0;
-  currentLocation: string;
+  currentLocation: Location;
   loading = false;
   locations: Array<Location>;
   localStorageId = 'toorist-locations';
@@ -36,7 +36,7 @@ export class MapComponent implements OnInit {
   ngOnInit(): void {
     this.zoom = 2;
     this.locations = this.getStoredLocations();
-    this.loadCurrentLocation();
+    // this.loadCurrentLocation();
   }
 
   goToCurrentLocation(): void {
@@ -129,9 +129,9 @@ export class MapComponent implements OnInit {
   private updateCurrentLocation(): void {
     this.mapService.getLocation(this.currentLatitude, this.currentLongitude).subscribe((response) => {
       if (response.status === google.maps.GeocoderStatus.OK && response.results[0] !== void 0) {
-        this.currentLocation = response.results[0].formatted_address;
-      } else {
-        this.toastrService.error('uh oh');
+        console.log(response.results[0]);
+        this.currentLocation = new Location();
+        this.currentLocation.city = response.results[0].formatted_address;
       }
     }, (error) => {
       this.toastrService.error(error);

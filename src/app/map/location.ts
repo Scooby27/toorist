@@ -7,6 +7,8 @@ export class Location {
     city: string;
     countryName: string;
     countryCode: string;
+    countryFlag: string;
+    continent: string;
     currency: string;
     startDateMilliseconds: number;
     endDateMilliseconds: number;

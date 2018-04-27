@@ -3,8 +3,10 @@ import { ToastrService } from 'ngx-toastr';
 import { NavParams } from 'ionic-angular/navigation/nav-params';
 import { ViewController } from 'ionic-angular/navigation/view-controller';
 import { DatePicker } from '@ionic-native/date-picker';
+import * as EmojiFlags from 'emoji-flags';
 
 import { Location } from '../../location';
+import { CountryContinentEnum } from '../../countryContinentEnum';
 
 @Component({
   selector: 'app-location-modal',
@@ -46,6 +48,15 @@ export class LocationModalComponent implements AfterViewInit {
       location.startDateMilliseconds = new Date(this.startDate).getTime();
       location.endDateMilliseconds = new Date(this.endDate).getTime();
       location.defaultPlace = placeResult;
+      for (let i = 0; i < placeResult.address_components.length; i++) {
+        if (placeResult.address_components[i].types.includes('country')) {
+          location.countryCode = placeResult.address_components[i].short_name;
+          location.countryName = placeResult.address_components[i].long_name;
+          location.countryFlag = EmojiFlags.countryCode(location.countryCode).emoji;
+          break;
+        }
+      }
+      location.continent = CountryContinentEnum[location.countryCode];
       this.viewCtrl.dismiss(location);
       this.addMore = true;
       this.reset();

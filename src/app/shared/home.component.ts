@@ -15,6 +15,6 @@ export class HomeComponent {
 
   login(): void {
     this.toastrService.success('Welcome home.');
-    this.appCtrl.getRootNav().push(MapComponent);
+    this.appCtrl.getRootNavs()[0].push(MapComponent);
   }
 }
