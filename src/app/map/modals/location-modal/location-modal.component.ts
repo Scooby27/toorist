@@ -61,11 +61,12 @@ export class LocationModalComponent implements AfterViewInit {
       this.addMore = true;
       this.reset();
     } else {
-      const errorToast = this.toastController.create({
+      this.toastController.create({
         message: 'Oops! You have missed some information!',
-        position: 'bottom'
-      });
-      errorToast.present();
+        position: 'bottom',
+        duration: 3000,
+        cssClass: 'toastError'
+      }).present();
     }
   }
 

@@ -58,11 +58,12 @@ export class MapComponent implements OnInit {
         });
         this.locations = Object.assign([], oldLocations);
         this.locationService.setStoredLocations(this.locations);
-        const successToast = this.toastController.create({
+        this.toastController.create({
           message: location.city + ' has been added to your visited locations! Keep adding more!',
-          position: 'top'
-        });
-        successToast.present();
+          position: 'top',
+          duration: 3000,
+          cssClass: 'toastSuccess'
+        }).present();
         this.addLocation();
       }
     });
@@ -95,11 +96,12 @@ export class MapComponent implements OnInit {
         this.currentLocation.city = response.results[0].formatted_address;
       }
     }, (error) => {
-      const errorToast = this.toastController.create({
+      this.toastController.create({
         message: error,
-        position: 'bottom'
-      });
-      errorToast.present();
+        position: 'bottom',
+        duration: 3000,
+        cssClass: 'toastError'
+      }).present();
     });
   }
 }

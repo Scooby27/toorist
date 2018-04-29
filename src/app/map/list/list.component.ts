@@ -36,11 +36,12 @@ export class ListComponent implements OnInit {
         });
         this.locations = Object.assign([], oldLocations);
         this.locationService.setStoredLocations(this.locations);
-        const successToast = this.toastController.create({
+        this.toastController.create({
           message: location.city + ' has been added to your visited locations! Keep adding more!',
-          position: 'top'
-        });
-        successToast.present();
+          position: 'top',
+          duration: 3000,
+          cssClass: 'toastSuccess'
+        }).present();
         this.addLocation();
       }
     });
@@ -54,7 +55,11 @@ export class ListComponent implements OnInit {
         if (this.locations[i].id === location.id) {
           this.locations[i] = Object.assign({}, location);
           this.locationService.setStoredLocations(this.locations);
-          this.toastController.create({message: 'Your trip to ' + location.city + ' has been updated!'}).present();
+          this.toastController.create({
+            message: 'Your trip to ' + location.city + ' has been updated!',
+            duration: 3000,
+            cssClass: 'toastSuccess'
+          }).present();
           break;
         }
       }
@@ -66,7 +71,11 @@ export class ListComponent implements OnInit {
       if (this.locations[i].id === location.id) {
         this.locations.splice(i, 1);
         this.locationService.setStoredLocations(this.locations);
-        this.toastController.create({message: location.city + ' has been deleted.'}).present();
+        this.toastController.create({
+          message: location.city + ' has been deleted.',
+          duration: 3000,
+          cssClass: 'toastSuccess'
+        }).present();
         break;
       }
     }

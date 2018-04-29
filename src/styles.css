@@ -3,3 +3,11 @@
     z-index: 10000;
     width: 40vh !important;
 }
+
+.toastSuccess div {
+    background-color: green;
+}
+
+.toastError div { 
+    background-color: red;
+}
