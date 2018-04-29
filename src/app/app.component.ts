@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { LoadingService } from './shared/loading.service';
-import { MapComponent } from './map/map.component';
+import { MapComponent } from './map/map/map.component';
 
 @Component({
   selector: 'app-root',

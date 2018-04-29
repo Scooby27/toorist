@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ToastrModule } from 'ngx-toastr';
 import { IonicApp, IonicModule } from 'ionic-angular';
 
 
@@ -10,7 +9,6 @@ import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
-import { MapComponent } from './map/map.component';
 import { MapModule } from './map/map.module';
 
 @NgModule({
@@ -25,7 +23,6 @@ import { MapModule } from './map/map.module';
     IonicModule.forRoot(AppComponent),
     SharedModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot({positionClass: 'toast-bottom-center'}),
     environment.production ? ServiceWorkerModule.register('/ngsw-worker.js') : []
   ],
   providers: [],

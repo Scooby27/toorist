@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { App } from 'ionic-angular/components/app/app';
 
-import { MapComponent } from '../map/map.component';
+import { MapComponent } from '../map/map/map.component';
+import { ListComponent } from '../map/list/list.component';
 
 @Component({
   selector: 'app-nav-bar',
@@ -18,7 +19,7 @@ export class NavBarComponent implements OnInit {
   ngOnInit(): void {
     this.components = {
       map: MapComponent,
-      list: null,
+      list: ListComponent,
       stats: null
     };
   }

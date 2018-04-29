@@ -1,0 +1,10 @@
+.locationContainer {
+    overflow-y: scroll;
+    height: 90vh;
+}
+
+.noLocationsText {
+    margin-top: 30%;
+    color: grey;
+    text-align: center;
+}

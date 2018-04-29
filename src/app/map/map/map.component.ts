@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
 import { Geolocation, Geoposition } from '@ionic-native/geolocation';
 import { LatLngLiteral } from '@agm/core/map-types';
 import { ModalController } from 'ionic-angular/components/modal/modal-controller';
+import { ToastController } from 'ionic-angular/components/toast/toast-controller';
 
-import { MapService } from './map.service';
-import { Location } from './location';
-import { LocationModalComponent } from './modals/location-modal/location-modal.component';
+import { LocationService } from '../location.service';
+import { Location } from '../location';
+import { LocationModalComponent } from '../modals/location-modal/location-modal.component';
 
 @Component({
   selector: 'app-map',
@@ -21,22 +21,19 @@ export class MapComponent implements OnInit {
   currentLocation: Location;
   loading = false;
   locations: Array<Location>;
-  localStorageId = 'toorist-locations';
   zoom: number;
 
-  private nextUniqueId = 0;
-
   constructor(
-    private mapService: MapService,
+    private locationService: LocationService,
     private modalCtrl: ModalController,
-    private toastrService: ToastrService,
+    private toastController: ToastController,
     private geolocation: Geolocation) {
   }
 
   ngOnInit(): void {
     this.zoom = 2;
-    this.locations = this.getStoredLocations();
-    //this.loadCurrentLocation();
+    this.locations = this.locationService.getStoredLocations();
+    // this.loadCurrentLocation();
   }
 
   goToCurrentLocation(): void {
@@ -53,34 +50,22 @@ export class MapComponent implements OnInit {
     locationModal.present();
     locationModal.onWillDismiss((location: Location) => {
       if (location !== void 0) {
-        location.id = this.nextUniqueId++;
+        location.id = this.locationService.getNextUniqueId();
         const oldLocations = Object.assign([], this.locations);
         oldLocations.push(location);
         oldLocations.sort((a, b) => {
           return a.city < b.city ? -1 : 1;
         });
         this.locations = Object.assign([], oldLocations);
-        this.setStoredLocations(this.locations);
-        this.toastrService.success(location.city + ' has been added to your visited locations!');
-        this.toastrService.info('Great! Keep adding more!');
+        this.locationService.setStoredLocations(this.locations);
+        const successToast = this.toastController.create({
+          message: location.city + ' has been added to your visited locations! Keep adding more!',
+          position: 'top'
+        });
+        successToast.present();
         this.addLocation();
       }
     });
-  }
-
-  updateLocation(location: Location): void {
-    if (location.deleted) {
-      this.deleteLocation(location);
-    } else {
-      for (let i = 0; i < this.locations.length; i++) {
-        if (this.locations[i].id === location.id) {
-          this.locations[i] = Object.assign({}, location);
-          this.setStoredLocations(this.locations);
-          this.toastrService.success('Your trip to ' + location.city + ' has been updated!');
-          break;
-        }
-      }
-    }
   }
 
   updateMapCoordinates(coordinates: LatLngLiteral): void {
@@ -102,39 +87,19 @@ export class MapComponent implements OnInit {
     });
   }
 
-  private deleteLocation(location: Location): void {
-    for (let i = 0; i < this.locations.length; i++) {
-      if (this.locations[i].id === location.id) {
-        this.locations.splice(i, 1);
-        this.setStoredLocations(this.locations);
-        this.toastrService.success(location.city + ' has been deleted.');
-        break;
-      }
-    }
-  }
-
-  private getStoredLocations(): Array<Location> {
-    let storedLocations = JSON.parse(localStorage.getItem(this.localStorageId));
-    storedLocations = storedLocations === null ? [] : storedLocations;
-    for (let i = 0; i < storedLocations.length; i++) {
-      this.nextUniqueId = storedLocations[i].id >= this.nextUniqueId ? storedLocations[i].id + 1 : this.nextUniqueId;
-    }
-    return storedLocations;
-  }
-
-  private setStoredLocations(storedLocations: Array<Location>): void {
-    localStorage.setItem(this.localStorageId, JSON.stringify(storedLocations));
-  }
-
   private updateCurrentLocation(): void {
-    this.mapService.getLocation(this.currentLatitude, this.currentLongitude).subscribe((response) => {
+    this.locationService.getLocation(this.currentLatitude, this.currentLongitude).subscribe((response) => {
       if (response.status === google.maps.GeocoderStatus.OK && response.results[0] !== void 0) {
         console.log(response.results[0]);
         this.currentLocation = new Location();
         this.currentLocation.city = response.results[0].formatted_address;
       }
     }, (error) => {
-      this.toastrService.error(error);
+      const errorToast = this.toastController.create({
+        message: error,
+        position: 'bottom'
+      });
+      errorToast.present();
     });
   }
 }

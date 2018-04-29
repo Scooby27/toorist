@@ -2,11 +2,12 @@
   <ion-item>
     <div>
       <span (click)="toggleCollapse()">
-        <i class="fa" [ngClass]="!isCollapsed ? 'fa-chevron-circle-down' : 'fa-chevron-circle-right'"></i>
+        <ion-icon *ngIf="isCollapsed" name="arrow-dropright-circle"></ion-icon>
+        <ion-icon *ngIf="!isCollapsed" name="arrow-dropdown-circle"></ion-icon>
         {{location.city}}
       </span>
       <button class="btn btn-lg btn-info float-right" (click)="edit()">
-        <i class="fa fa-edit"></i>
+        <ion-icon name="create"></ion-icon>
       </button>
     </div>
     <div class="collapse locationBody" [ngbCollapse]="isCollapsed">
@@ -23,8 +24,8 @@
   </ion-item>
 
   <ion-item-options side="right" (ionSwipe)="deleteLocation()">
-    <button ion-button expandable color="danger">
-      <i class="fa fa-trash" (click)="deleteLocation()"></i>
+    <button ion-button expandable color="danger" (click)="deleteLocation()">
+      <ion-icon name="trash"></ion-icon>
     </button>
   </ion-item-options>
 </ion-item-sliding>

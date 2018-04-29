@@ -1,6 +1,6 @@
 import { Component, AfterViewInit } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
 import { NavParams } from 'ionic-angular/navigation/nav-params';
+import { ToastController } from 'ionic-angular/components/toast/toast-controller';
 import { ViewController } from 'ionic-angular/navigation/view-controller';
 import { DatePicker } from '@ionic-native/date-picker';
 import * as EmojiFlags from 'emoji-flags';
@@ -24,7 +24,7 @@ export class LocationModalComponent implements AfterViewInit {
   private autoComplete: google.maps.places.Autocomplete;
 
   constructor(private params: NavParams, private viewCtrl: ViewController,
-    private datePicker: DatePicker, private toastrService: ToastrService) {
+    private datePicker: DatePicker, private toastController: ToastController) {
   }
 
   ngAfterViewInit(): void {
@@ -61,7 +61,11 @@ export class LocationModalComponent implements AfterViewInit {
       this.addMore = true;
       this.reset();
     } else {
-      this.toastrService.error('Oops! You have missed some information!');
+      const errorToast = this.toastController.create({
+        message: 'Oops! You have missed some information!',
+        position: 'bottom'
+      });
+      errorToast.present();
     }
   }
 
