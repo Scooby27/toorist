@@ -26,6 +26,6 @@
         <string>We would like to know where you are to give you relevant information about your location.</string>
     </edit-config>
     <plugin name="cordova-plugin-whitelist" spec="1" />
-    <engine name="android" spec="^7.0.0" />
+    <engine name="android" spec="^7.1.0" />
     <engine name="ios" spec="^4.5.4" />
 </widget>

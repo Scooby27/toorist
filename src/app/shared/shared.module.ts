@@ -5,13 +5,11 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { IonicModule } from 'ionic-angular';
 
 import { ErrorComponent } from './error.component';
-import { HomeComponent } from './home.component';
 import { LoadingIndicatorComponent } from './loadingIndicator.component';
 import { LoadingService } from './loading.service';
 
 @NgModule({
   declarations: [
-    HomeComponent,
     ErrorComponent,
     LoadingIndicatorComponent
   ],
@@ -23,14 +21,12 @@ import { LoadingService } from './loading.service';
     ReactiveFormsModule
   ],
   exports: [
-    HomeComponent,
     ErrorComponent,
     CommonModule,
     NgSelectModule,
     FormsModule,
     ReactiveFormsModule,
     LoadingIndicatorComponent],
-  entryComponents: [HomeComponent],
   providers: [LoadingService]
 })
 export class SharedModule { }

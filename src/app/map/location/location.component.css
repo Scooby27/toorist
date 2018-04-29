@@ -2,3 +2,8 @@
     margin-top: 2%;
     margin-bottom: 1%;
 }
+
+.pac-container {
+    z-index: 10000 !important
+}
+

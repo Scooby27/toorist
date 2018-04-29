@@ -31,3 +31,7 @@ a.active {
 nav.navbar{
   border-bottom: 1px grey solid;
 }
+
+.navbarIcon {
+  color: black;
+}
