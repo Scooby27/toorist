@@ -1,6 +1,6 @@
 <div>
   <agm-map class="agm-map" [latitude]="latitude" [longitude]="longitude" [fullscreenControl]="true" [zoom]="zoom" [usePanning]="true" (zoomChange)="updateZoom($event)" (centerChange)="updateMapCoordinates($event)">
-    <agm-marker [iconUrl]="'./assets/img/currentLocationIcon.png'" [latitude]="currentLatitude" [longitude]="currentLongitude"></agm-marker>
+    <agm-marker *ngIf="currentLocationObtained" [iconUrl]="'./assets/img/currentLocationIcon.png'" [latitude]="currentLatitude" [longitude]="currentLongitude"></agm-marker>
     <agm-marker *ngFor="let location of locations" [iconUrl]="'./assets/img/flagIcon.png'" [latitude]="location.latitude" [longitude]="location.longitude"
       [title]="location.city"></agm-marker>
   </agm-map>
@@ -14,4 +14,3 @@
       <ion-icon name="navigate"></ion-icon>
   </button>
 </div>
-<app-shared-loadingindicator *ngIf="loading"></app-shared-loadingindicator>

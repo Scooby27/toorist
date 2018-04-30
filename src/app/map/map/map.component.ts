@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Geolocation, Geoposition } from '@ionic-native/geolocation';
 import { LatLngLiteral } from '@agm/core/map-types';
 import { ModalController } from 'ionic-angular/components/modal/modal-controller';
@@ -19,9 +19,11 @@ export class MapComponent implements OnInit {
   currentLatitude = 0;
   currentLongitude = 0;
   currentLocation: Location;
-  loading = false;
   locations: Array<Location>;
   zoom: number;
+  currentLocationObtained = false;
+
+  @ViewChild('map') map;
 
   constructor(
     private locationService: LocationService,
@@ -33,7 +35,7 @@ export class MapComponent implements OnInit {
   ngOnInit(): void {
     this.zoom = 2;
     this.locations = this.locationService.getStoredLocations();
-    // this.loadCurrentLocation();
+    this.loadCurrentLocation();
   }
 
   goToCurrentLocation(): void {
@@ -79,9 +81,8 @@ export class MapComponent implements OnInit {
   }
 
   private loadCurrentLocation(): void {
-    this.loading = true;
     this.geolocation.watchPosition().subscribe((position: Geoposition) => {
-      this.loading = false;
+      this.currentLocationObtained = true;
       this.currentLatitude = position.coords.latitude;
       this.currentLongitude = position.coords.longitude;
       this.updateCurrentLocation();
