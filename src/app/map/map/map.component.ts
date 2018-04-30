@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Geolocation, Geoposition } from '@ionic-native/geolocation';
 import { LatLngLiteral } from '@agm/core/map-types';
 import { ModalController } from 'ionic-angular/components/modal/modal-controller';
@@ -7,7 +7,7 @@ import { ToastController } from 'ionic-angular/components/toast/toast-controller
 import { LocationService } from '../location.service';
 import { Location } from '../location';
 import { LocationModalComponent } from '../modals/location-modal/location-modal.component';
-import { RetroMapStyles } from './retroMapStyles';
+import { MapStyles } from './mapStyles';
 
 @Component({
   selector: 'app-map',
@@ -23,9 +23,7 @@ export class MapComponent implements OnInit {
   locations: Array<Location>;
   zoom: number;
   currentLocationObtained = false;
-  styles = RetroMapStyles.styles;
-
-  @ViewChild('map') map;
+  styles = MapStyles.retro;
 
   constructor(
     private locationService: LocationService,

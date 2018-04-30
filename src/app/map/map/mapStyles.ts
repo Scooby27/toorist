@@ -1,5 +1,5 @@
-export class RetroMapStyles {
-    static styles = [
+export class MapStyles {
+    static retro = [
         {
             'elementType': 'geometry',
             'stylers': [

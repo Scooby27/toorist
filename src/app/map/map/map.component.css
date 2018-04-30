@@ -1,12 +1,16 @@
+
+.mapContainer {
+    height: 100%;
+}
+
 .agm-map {
-    height: 90vh;
     width: 100%;
 }
 
 .map-current-location-btn {
     position: fixed;
-    top: 80vh;
-    left: 5px;
+    top: 80%;
+    left: 1%;
 }
 
 .addLocationButton {
