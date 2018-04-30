@@ -7,6 +7,7 @@ import { ToastController } from 'ionic-angular/components/toast/toast-controller
 import { LocationService } from '../location.service';
 import { Location } from '../location';
 import { LocationModalComponent } from '../modals/location-modal/location-modal.component';
+import { RetroMapStyles } from './retroMapStyles';
 
 @Component({
   selector: 'app-map',
@@ -22,6 +23,7 @@ export class MapComponent implements OnInit {
   locations: Array<Location>;
   zoom: number;
   currentLocationObtained = false;
+  styles = RetroMapStyles.styles;
 
   @ViewChild('map') map;
 
