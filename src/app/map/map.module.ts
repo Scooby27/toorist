@@ -11,10 +11,12 @@ import { LocationService } from './location.service';
 import { LocationModalComponent } from './modals/location-modal/location-modal.component';
 import { LocationComponent } from './location/location.component';
 import { ListComponent } from './list/list.component';
+import { StatsComponent } from './stats/stats.component';
 
 @NgModule({
   declarations: [
     MapComponent,
+    StatsComponent,
     ListComponent,
     LocationModalComponent,
     LocationComponent
@@ -28,7 +30,7 @@ import { ListComponent } from './list/list.component';
   exports: [
     MapComponent
   ],
-  entryComponents: [MapComponent, ListComponent, LocationModalComponent],
+  entryComponents: [MapComponent, StatsComponent, ListComponent, LocationModalComponent],
   providers: [LocationService, Geolocation, DatePicker]
 })
 export class MapModule { }

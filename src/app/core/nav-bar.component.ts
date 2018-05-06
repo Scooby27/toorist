@@ -3,6 +3,7 @@ import { App } from 'ionic-angular/components/app/app';
 
 import { MapComponent } from '../map/map/map.component';
 import { ListComponent } from '../map/list/list.component';
+import { StatsComponent } from '../map/stats/stats.component';
 
 @Component({
   selector: 'app-nav-bar',
@@ -20,7 +21,7 @@ export class NavBarComponent implements OnInit {
     this.components = {
       map: MapComponent,
       list: ListComponent,
-      stats: null
+      stats: StatsComponent
     };
   }
 
