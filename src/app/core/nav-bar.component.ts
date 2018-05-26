@@ -26,6 +26,7 @@ export class NavBarComponent implements OnInit {
   }
 
   navigateTo(component): void {
+    this.appCtrl.getRootNavs()[0].popToRoot();
     this.appCtrl.getRootNavs()[0].push(component);
   }
 }

@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { Geolocation, Geoposition } from '@ionic-native/geolocation';
+import { Component, AfterViewInit } from '@angular/core';
 import { LatLngLiteral } from '@agm/core/map-types';
 import { ModalController } from 'ionic-angular/components/modal/modal-controller';
 import { ToastController } from 'ionic-angular/components/toast/toast-controller';
@@ -7,7 +6,6 @@ import { ToastController } from 'ionic-angular/components/toast/toast-controller
 import { LocationService } from '../location.service';
 import { Location } from '../location';
 import { LocationModalComponent } from '../modals/location-modal/location-modal.component';
-import { MapStyles } from '../mapStyles';
 
 declare var google: any;
 
@@ -17,17 +15,24 @@ declare var google: any;
   styleUrls: ['./stats.component.css']
 })
 
-export class StatsComponent implements OnInit {
+export class StatsComponent implements AfterViewInit {
   locations: Array<Location>;
+
+  private countriesPerContinent = {
+    africa: 59,
+    asia: 55,
+    europe: 56,
+    americas: 53,
+    oceania: 25
+  };
 
   constructor(
     private locationService: LocationService,
     private modalCtrl: ModalController,
-    private toastController: ToastController,
-    private geolocation: Geolocation) {
+    private toastController: ToastController) {
   }
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
     this.loadLocations();
     this.drawMap();
   }
@@ -55,7 +60,6 @@ export class StatsComponent implements OnInit {
           cssClass: 'toastSuccess'
         }).present();
         this.drawMap();
-        this.addLocation();
       }
     });
   }
@@ -74,11 +78,11 @@ export class StatsComponent implements OnInit {
       const countries: Array<string> = [];
       const data = google.visualization.arrayToDataTable([
         ['Region code', 'Continent', 'Countries Visited', 'Cities Visited'],
-        ['142', 'Asia', this.getNumberOfCountriesInContinent('Asia'), this.getNumberOfCitiesInContinent('Asia')],
-        ['002', 'Africa', this.getNumberOfCountriesInContinent('Africa'), this.getNumberOfCitiesInContinent('Africa')],
-        ['150', 'Europe', this.getNumberOfCountriesInContinent('Europe'), this.getNumberOfCitiesInContinent('Europe')],
-        ['009', 'Oceania', this.getNumberOfCountriesInContinent('Oceania'), this.getNumberOfCitiesInContinent('Oceania')],
-        ['019', 'Americas', this.getNumberOfCountriesInContinent('Americas'), this.getNumberOfCitiesInContinent('Americas')]
+        ['142', 'Asia', this.getNumberOfVisitedCountriesInContinent('Asia'), this.getNumberOfVisitedCitiesInContinent('Asia')],
+        ['002', 'Africa', this.getNumberOfVisitedCountriesInContinent('Africa'), this.getNumberOfVisitedCitiesInContinent('Africa')],
+        ['150', 'Europe', this.getNumberOfVisitedCountriesInContinent('Europe'), this.getNumberOfVisitedCitiesInContinent('Europe')],
+        ['009', 'Oceania', this.getNumberOfVisitedCountriesInContinent('Oceania'), this.getNumberOfVisitedCitiesInContinent('Oceania')],
+        ['019', 'Americas', this.getNumberOfVisitedCountriesInContinent('Americas'), this.getNumberOfVisitedCitiesInContinent('Americas')]
       ]);
 
       const options = { resolution: 'continents' };
@@ -89,13 +93,13 @@ export class StatsComponent implements OnInit {
     google.charts.setOnLoadCallback(drawRegionsMap);
   }
 
-  private getNumberOfCitiesInContinent(continent: string): number {
+  private getNumberOfVisitedCitiesInContinent(continent: string): number {
     const continentUpperCase = continent.toUpperCase().substring(0, continent.length - 1);
     const cities = this.locations.filter(l => l.continent.toUpperCase().includes(continentUpperCase)).map( l => l.city.toUpperCase());
     return cities.filter( (city, index) => cities.indexOf(city) === index).length;
   }
 
-  private getNumberOfCountriesInContinent(continent: string): number {
+  private getNumberOfVisitedCountriesInContinent(continent: string): number {
     const continentUpperCase = continent.toUpperCase().substring(0, continent.length - 1);
     return this.locations.filter((location, index) =>
       location.continent.toUpperCase().includes(continentUpperCase) &&

@@ -42,7 +42,6 @@ export class ListComponent implements OnInit {
           duration: 3000,
           cssClass: 'toastSuccess'
         }).present();
-        this.addLocation();
       }
     });
   }

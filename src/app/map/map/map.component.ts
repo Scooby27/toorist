@@ -66,7 +66,6 @@ export class MapComponent implements OnInit {
           duration: 3000,
           cssClass: 'toastSuccess'
         }).present();
-        this.addLocation();
       }
     });
   }
@@ -92,7 +91,6 @@ export class MapComponent implements OnInit {
   private updateCurrentLocation(): void {
     this.locationService.getLocation(this.currentLatitude, this.currentLongitude).subscribe((response) => {
       if (response.status === google.maps.GeocoderStatus.OK && response.results[0] !== void 0) {
-        console.log(response.results[0]);
         this.currentLocation = new Location();
         this.currentLocation.city = response.results[0].formatted_address;
       }
