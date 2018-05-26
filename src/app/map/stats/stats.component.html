@@ -1,6 +1,5 @@
-<div class="mapContainer" #map>
-  <agm-map [style.height.px]="map.offsetHeight - footer.offsetHeight" class="agm-map" [zoom]="zoom" [minZoom]="zoom" [maxZoom]="zoom" [zoomControl]="false" [styles]="styles">
-  </agm-map>
+<div class="mapContainer">
+  <div id="regions_div" class="geoChart"></div>
   <ion-footer #footer>
     <button ion-item detail-none color="primary" class="addLocationButton" (click)="addLocation()">
       <ion-icon name="add"></ion-icon>
