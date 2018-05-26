@@ -73,21 +73,33 @@ export class StatsComponent implements OnInit {
     const drawRegionsMap = () => {
       const countries: Array<string> = [];
       const data = google.visualization.arrayToDataTable([
-        ['Region code', 'Continent', 'Cities Visited'],
-        ['142', 'Asia', this.locations.filter(l => l.continent === 'Asia').length],
-        ['002', 'Africa', this.locations.filter(l => l.continent === 'Africa').length],
-        ['150', 'Europe', this.locations.filter(l => l.continent === 'Europe').length],
-        ['009', 'Oceania', this.locations.filter(l => l.continent === 'Oceania').length],
-        ['019', 'Americas', this.locations.filter(l => l.continent === 'North America').length]
+        ['Region code', 'Continent', 'Countries Visited', 'Cities Visited'],
+        ['142', 'Asia', this.getNumberOfCountriesInContinent('Asia'), this.getNumberOfCitiesInContinent('Asia')],
+        ['002', 'Africa', this.getNumberOfCountriesInContinent('Africa'), this.getNumberOfCitiesInContinent('Africa')],
+        ['150', 'Europe', this.getNumberOfCountriesInContinent('Europe'), this.getNumberOfCitiesInContinent('Europe')],
+        ['009', 'Oceania', this.getNumberOfCountriesInContinent('Oceania'), this.getNumberOfCitiesInContinent('Oceania')],
+        ['019', 'Americas', this.getNumberOfCountriesInContinent('Americas'), this.getNumberOfCitiesInContinent('Americas')]
       ]);
 
       const options = { resolution: 'continents' };
-
       const chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
-
       chart.draw(data, options);
     };
 
     google.charts.setOnLoadCallback(drawRegionsMap);
+  }
+
+  private getNumberOfCitiesInContinent(continent: string): number {
+    const continentUpperCase = continent.toUpperCase().substring(0, continent.length - 1);
+    const cities = this.locations.filter(l => l.continent.toUpperCase().includes(continentUpperCase)).map( l => l.city.toUpperCase());
+    return cities.filter( (city, index) => cities.indexOf(city) === index).length;
+  }
+
+  private getNumberOfCountriesInContinent(continent: string): number {
+    const continentUpperCase = continent.toUpperCase().substring(0, continent.length - 1);
+    return this.locations.filter((location, index) =>
+      location.continent.toUpperCase().includes(continentUpperCase) &&
+      this.locations.map(l => l.countryCode).indexOf(location.countryCode) === index
+    ).length;
   }
 }
