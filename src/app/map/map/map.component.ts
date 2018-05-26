@@ -7,7 +7,7 @@ import { ToastController } from 'ionic-angular/components/toast/toast-controller
 import { LocationService } from '../location.service';
 import { Location } from '../location';
 import { LocationModalComponent } from '../modals/location-modal/location-modal.component';
-import { MapStyles } from './mapStyles';
+import { MapStyles } from '../mapStyles';
 
 @Component({
   selector: 'app-map',
