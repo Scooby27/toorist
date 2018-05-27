@@ -1,6 +1,6 @@
 <div class="mapContainer" #map>
   <agm-map [style.height.px]="map.offsetHeight - footer.offsetHeight" class="agm-map" [latitude]="latitude" [longitude]="longitude" [styles]="styles"
-    [zoom]="zoom" [usePanning]="true" (zoomChange)="updateZoom($event)" (centerChange)="updateMapCoordinates($event)">
+    [zoom]="zoom" [usePanning]="true" (zoomChange)="updateZoom($event)">
     <agm-marker *ngIf="currentLocationObtained" [iconUrl]="'./assets/img/currentLocationIcon.png'" [latitude]="currentLatitude"
       [longitude]="currentLongitude"></agm-marker>
     <agm-marker *ngFor="let location of locations" [iconUrl]="'./assets/img/flagIcon.png'" [latitude]="location.latitude" [longitude]="location.longitude"

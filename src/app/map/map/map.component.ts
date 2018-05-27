@@ -70,11 +70,6 @@ export class MapComponent implements OnInit {
     });
   }
 
-  updateMapCoordinates(coordinates: LatLngLiteral): void {
-    this.longitude = coordinates.lng;
-    this.latitude = coordinates.lat;
-  }
-
   updateZoom(zoom: number): void {
     this.zoom = zoom;
   }
