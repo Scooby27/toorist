@@ -93,7 +93,7 @@ export class StatsComponent implements AfterViewInit {
         ['019', 'Americas', this.getNumberOfVisitedCountriesInContinent('Americas'), this.getNumberOfVisitedCitiesInContinent('Americas')]
       ]);
 
-      const options = { resolution: 'continents' };
+      const options = { resolution: 'continents', colorAxis: {colors: ['#FFF6E5', '#FFA500']} };
       const chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
       chart.draw(data, options);
     };
