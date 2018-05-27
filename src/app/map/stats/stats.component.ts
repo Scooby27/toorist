@@ -23,7 +23,7 @@ export class StatsComponent implements AfterViewInit {
     asia: 55,
     europe: 56,
     americas: 53,
-    oceania: 25
+    australia: 25
   };
 
   constructor(
@@ -33,6 +33,7 @@ export class StatsComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    this.resizeChart();
     this.loadLocations();
     this.drawMap();
   }
@@ -64,6 +65,12 @@ export class StatsComponent implements AfterViewInit {
     });
   }
 
+  private resizeChart(): void {
+    const chartContainer = document.getElementById('chartContainer');
+    const footer =  document.getElementById('footer');
+    chartContainer.style.height = chartContainer.offsetHeight - footer.offsetHeight + 'px';
+  }
+
   private loadLocations(): void {
     this.locations = this.locationService.getStoredLocations();
   }
@@ -81,7 +88,8 @@ export class StatsComponent implements AfterViewInit {
         ['142', 'Asia', this.getNumberOfVisitedCountriesInContinent('Asia'), this.getNumberOfVisitedCitiesInContinent('Asia')],
         ['002', 'Africa', this.getNumberOfVisitedCountriesInContinent('Africa'), this.getNumberOfVisitedCitiesInContinent('Africa')],
         ['150', 'Europe', this.getNumberOfVisitedCountriesInContinent('Europe'), this.getNumberOfVisitedCitiesInContinent('Europe')],
-        ['009', 'Oceania', this.getNumberOfVisitedCountriesInContinent('Oceania'), this.getNumberOfVisitedCitiesInContinent('Oceania')],
+        ['009', 'Australia', this.getNumberOfVisitedCountriesInContinent('Australia'),
+        this.getNumberOfVisitedCitiesInContinent('Australia')],
         ['019', 'Americas', this.getNumberOfVisitedCountriesInContinent('Americas'), this.getNumberOfVisitedCitiesInContinent('Americas')]
       ]);
 
