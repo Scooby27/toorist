@@ -1,6 +1,7 @@
 .locationContainer {
     overflow-y: scroll;
     height: 90vh;
+    background-color: white;
 }
 
 .noLocationsText {
