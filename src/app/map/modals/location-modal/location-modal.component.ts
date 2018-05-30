@@ -35,12 +35,23 @@ export class LocationModalComponent implements AfterViewInit {
 
     const input = this.getAutoCompleteInputElement();
     this.autoComplete = new google.maps.places.Autocomplete(input, options);
+
+    if (navigator.userAgent.match(/(iPad|iPhone|iPod)/g)) {
+      setTimeout(() => {
+        const container = document.getElementsByClassName('pac-container')[0];
+        container.addEventListener('touchend', (e) => {
+          e.stopImmediatePropagation();
+        });
+      }, 500);
+    }
+
   }
+
 
   addLocation(): void {
     let placeResult = this.autoComplete.getPlace();
     placeResult = placeResult === void 0 ? this.defaultPlace : placeResult;
-    if (placeResult !== void 0 && this.startDate !== void 0 &&  this.endDate !== void 0) {
+    if (placeResult !== void 0 && this.startDate !== void 0 && this.endDate !== void 0) {
       const location = new Location();
       location.city = placeResult.name;
       location.latitude = placeResult.geometry.location.lat();
