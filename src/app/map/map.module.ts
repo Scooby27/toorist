@@ -25,7 +25,7 @@ import { StatsComponent } from './stats/stats.component';
     SharedModule,
     NgbModule.forRoot(),
     IonicModule.forRoot(LocationComponent),
-    AgmCoreModule.forRoot({apiKey: 'AIzaSyDa6c-mJ82lZPB-0HOE59WquzqStIM_DOc', libraries: ['places']})
+    AgmCoreModule.forRoot({apiKey: 'AIzaSyCN0d30qHE_S9CkDarkURUAzis4L1Tfzfw', libraries: ['places']})
   ],
   exports: [
     MapComponent

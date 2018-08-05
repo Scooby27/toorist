@@ -78,7 +78,7 @@ export class StatsComponent implements AfterViewInit {
   private drawMap(): void {
     google.charts.load('current', {
       packages: ['geochart'],
-      mapsApiKey: 'AIzaSyDa6c-mJ82lZPB-0HOE59WquzqStIM_DOc'
+      mapsApiKey: 'AIzaSyCN0d30qHE_S9CkDarkURUAzis4L1Tfzfw'
     });
 
     const drawRegionsMap = () => {
