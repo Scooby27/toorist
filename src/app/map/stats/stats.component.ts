@@ -1,5 +1,4 @@
 import { Component, AfterViewInit } from '@angular/core';
-import { LatLngLiteral } from '@agm/core/map-types';
 import { ModalController } from 'ionic-angular/components/modal/modal-controller';
 import { ToastController } from 'ionic-angular/components/toast/toast-controller';
 
