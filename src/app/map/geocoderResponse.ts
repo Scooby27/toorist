@@ -1,4 +1,4 @@
-import { } from '@types/googlemaps';
+/// <reference types="googlemaps" />
 
 export interface GeocoderResponse {
     results: Array<google.maps.GeocoderResult>;

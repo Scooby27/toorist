@@ -1,0 +1,12 @@
+<section id="cd-timeline" class="cd-container">
+ <div *ngFor="let location of locations" class="cd-timeline-block">
+  <!-- CUSTOMIZE YOUR STYLE USING DEFAULT IONIC VALUES SUCH AS POSITIVE, CALM, BALANCED,... -->
+  <div class="cd-timeline-icon energized">
+      {{location.countryFlag}}
+  </div>
+  <!-- CUSTOMIZE YOUR STYLE USING DEFAULT IONIC VALUES SUCH AS POSITIVE, CALM, BALANCED,... -->
+  <div class="cd-timeline-content padding energized">
+    {{location.city}}
+  </div>
+</div>
+</section>
