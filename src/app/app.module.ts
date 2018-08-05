@@ -10,7 +10,6 @@ import { environment } from '../environments/environment';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { MapModule } from './map/map.module';
-import { TimelineModule } from './timeline/timeline.module';
 
 @NgModule({
   declarations: [
@@ -21,7 +20,6 @@ import { TimelineModule } from './timeline/timeline.module';
     CoreModule,
     SharedModule,
     MapModule,
-    TimelineModule,
     IonicModule.forRoot(AppComponent),
     SharedModule,
     BrowserAnimationsModule,

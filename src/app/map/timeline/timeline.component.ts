@@ -20,3 +20,4 @@ export class TimelineComponent implements OnInit {
   private sortByStartDate(locA: Location, locB: Location): number {
     return locA.startDateMilliseconds >= locB.startDateMilliseconds ? 1 : -1;
   }
+}
