@@ -66,7 +66,7 @@ export class StatsComponent implements AfterViewInit {
 
   private resizeChart(): void {
     const chartContainer = document.getElementById('chartContainer');
-    const footer =  document.getElementById('footer');
+    const footer = document.getElementById('footer');
     chartContainer.style.height = chartContainer.offsetHeight - footer.offsetHeight + 'px';
   }
 
@@ -81,18 +81,67 @@ export class StatsComponent implements AfterViewInit {
     });
 
     const drawRegionsMap = () => {
-      const countries: Array<string> = [];
       const data = google.visualization.arrayToDataTable([
         ['Region code', 'Continent', 'Countries Visited', 'Cities Visited'],
-        ['142', 'Asia', this.getNumberOfVisitedCountriesInContinent('Asia'), this.getNumberOfVisitedCitiesInContinent('Asia')],
-        ['002', 'Africa', this.getNumberOfVisitedCountriesInContinent('Africa'), this.getNumberOfVisitedCitiesInContinent('Africa')],
-        ['150', 'Europe', this.getNumberOfVisitedCountriesInContinent('Europe'), this.getNumberOfVisitedCitiesInContinent('Europe')],
-        ['009', 'Australia', this.getNumberOfVisitedCountriesInContinent('Australia'),
-        this.getNumberOfVisitedCitiesInContinent('Australia')],
-        ['019', 'Americas', this.getNumberOfVisitedCountriesInContinent('Americas'), this.getNumberOfVisitedCitiesInContinent('Americas')]
+        [
+          '142',
+          'Asia',
+          {
+            v: this.getNumberOfVisitedCountriesInContinent('Asia') / this.countriesPerContinent.asia,
+            f: this.getNumberOfVisitedCountriesInContinent('Asia') + ' / ' + this.countriesPerContinent.asia
+          },
+          this.getNumberOfVisitedCitiesInContinent('Asia')
+        ],
+        [
+          '002',
+          'Africa',
+          {
+            v: this.getNumberOfVisitedCountriesInContinent('Africa') / this.countriesPerContinent.africa,
+            f: this.getNumberOfVisitedCountriesInContinent('Africa') + ' / ' + this.countriesPerContinent.africa
+          },
+          this.getNumberOfVisitedCitiesInContinent('Africa')
+        ],
+        [
+          '150',
+          'Europe',
+          {
+            v: this.getNumberOfVisitedCountriesInContinent('Europe') / this.countriesPerContinent.europe,
+            f: this.getNumberOfVisitedCountriesInContinent('Europe') + ' / ' + this.countriesPerContinent.europe
+          },
+          this.getNumberOfVisitedCitiesInContinent('Europe')
+        ],
+        [
+          '009',
+          'Australia',
+          {
+            v: this.getNumberOfVisitedCountriesInContinent('Australia') / this.countriesPerContinent.australia,
+            f: this.getNumberOfVisitedCountriesInContinent('Australia') + ' / ' + this.countriesPerContinent.australia
+          },
+          this.getNumberOfVisitedCitiesInContinent('Australia')
+        ],
+        [
+          '019',
+          'Americas',
+          {
+            v: this.getNumberOfVisitedCountriesInContinent('Americas') / this.countriesPerContinent.americas,
+            f: this.getNumberOfVisitedCountriesInContinent('Americas') + ' / ' + this.countriesPerContinent.americas
+          },
+          this.getNumberOfVisitedCitiesInContinent('Americas')
+        ]
       ]);
 
-      const options = { resolution: 'continents', colorAxis: {colors: ['#FFF6E5', '#FFA500']} };
+      const options = {
+        resolution: 'continents',
+        colorAxis: {
+          colors: ['#FFF6E5', '#FFA500']
+        },
+        enableRegionInteractivity: true,
+        magnifyingGlass: {
+          enable: true,
+          zoomFactor: 100
+        },
+        legend: 'none'
+      };
       const chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
       chart.draw(data, options);
     };
@@ -102,8 +151,8 @@ export class StatsComponent implements AfterViewInit {
 
   private getNumberOfVisitedCitiesInContinent(continent: string): number {
     const continentUpperCase = continent.toUpperCase().substring(0, continent.length - 1);
-    const cities = this.locations.filter(l => l.continent.toUpperCase().includes(continentUpperCase)).map( l => l.city.toUpperCase());
-    return cities.filter( (city, index) => cities.indexOf(city) === index).length;
+    const cities = this.locations.filter(l => l.continent.toUpperCase().includes(continentUpperCase)).map(l => l.city.toUpperCase());
+    return cities.filter((city, index) => cities.indexOf(city) === index).length;
   }
 
   private getNumberOfVisitedCountriesInContinent(continent: string): number {
