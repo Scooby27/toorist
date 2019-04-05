@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Geolocation, Geoposition } from '@ionic-native/geolocation';
-import { LatLngLiteral } from '@agm/core/map-types';
 import { ModalController } from 'ionic-angular/components/modal/modal-controller';
 import { ToastController } from 'ionic-angular/components/toast/toast-controller';
 
@@ -23,7 +22,7 @@ export class MapComponent implements OnInit {
   locations: Array<Location>;
   zoom: number;
   currentLocationObtained = false;
-  styles = MapStyles.retro;
+  styles = MapStyles.orange;
 
   constructor(
     private locationService: LocationService,
