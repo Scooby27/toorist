@@ -9,7 +9,7 @@ import { Location } from '../location';
   styleUrls: ['./timeline.component.css']
 })
 export class TimelineComponent implements OnInit {
-  locations: Array<Location> = [];
+  locations: Array<Location>;
 
   constructor(private locationService: LocationService) { }
 
