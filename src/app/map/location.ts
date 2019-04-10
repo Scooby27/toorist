@@ -1,5 +1,3 @@
-import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap/datepicker/ngb-date-struct';
-
 export class Location {
     id: number;
     latitude: number;

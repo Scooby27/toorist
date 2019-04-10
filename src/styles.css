@@ -11,3 +11,7 @@
 .toastError div { 
     background-color: red;
 }
+
+app-timeline {
+    overflow-y: auto;
+}
