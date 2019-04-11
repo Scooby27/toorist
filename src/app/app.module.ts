@@ -1,15 +1,16 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { ServiceWorkerModule } from '@angular/service-worker';
+import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { IonicApp, IonicModule } from 'ionic-angular';
-
-
-import { AppComponent } from './app.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { IonicModule } from '@ionic/angular';
 import { environment } from '../environments/environment';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
-import { SharedModule } from './shared/shared.module';
 import { MapModule } from './map/map.module';
+import { SharedModule } from './shared/shared.module';
+
+
 
 @NgModule({
   declarations: [
@@ -20,12 +21,13 @@ import { MapModule } from './map/map.module';
     CoreModule,
     SharedModule,
     MapModule,
-    IonicModule.forRoot(AppComponent),
+    AppRoutingModule,
+    IonicModule.forRoot(),
     SharedModule,
     BrowserAnimationsModule,
     environment.production ? ServiceWorkerModule.register('/ngsw-worker.js') : []
   ],
   providers: [],
-  bootstrap: [IonicApp]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

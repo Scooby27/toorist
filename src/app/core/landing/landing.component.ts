@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { App } from 'ionic-angular/components/app/app';
+import { Router } from '@angular/router';
 
-import { MapComponent } from '../../map/map/map.component';
 
 @Component({
   selector: 'app-landing',
@@ -10,10 +9,10 @@ import { MapComponent } from '../../map/map/map.component';
 })
 export class LandingComponent implements OnInit {
 
-  constructor(private appCtrl: App) { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
-    this.appCtrl.getRootNavs()[0].push(MapComponent);
+    this.router.navigateByUrl('map');
   }
 
 }

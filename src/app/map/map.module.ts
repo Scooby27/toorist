@@ -24,7 +24,7 @@ import { TimelineComponent } from './timeline/timeline.component';
   imports: [
     CommonModule,
     SharedModule,
-    IonicModule.forRoot(),
+    IonicModule,
     AgmCoreModule.forRoot({ apiKey: 'AIzaSyCN0d30qHE_S9CkDarkURUAzis4L1Tfzfw', libraries: ['places'] })
   ],
   exports: [

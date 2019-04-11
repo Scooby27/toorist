@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ToastController } from 'ionic-angular/components/toast/toast-controller';
-import { ModalController } from 'ionic-angular/components/modal/modal-controller';
-
+import { ModalController, ToastController } from '@ionic/angular';
 import { Location } from '../location';
 import { LocationService } from '../location.service';
 import { LocationModalComponent } from '../modals/location-modal/location-modal.component';
+
 
 @Component({
   selector: 'app-list',
@@ -20,13 +19,14 @@ export class ListComponent implements OnInit {
     this.locations = this.locationService.getStoredLocations();
   }
 
-  addLocation(): void {
-    const locationModal = this.modalCtrl.create(
-      LocationModalComponent,
-      { title: 'Add Location', submitLabel: 'Add' }
-    );
+  async addLocation(): Promise<void> {
+    const locationModal = await this.modalCtrl.create({
+      component: LocationModalComponent,
+      componentProps: { title: 'Add Location', submitLabel: 'Add' }
+    });
     locationModal.present();
-    locationModal.onWillDismiss((location: Location) => {
+    locationModal.onWillDismiss().then(detail => {
+      const location = detail.data;
       if (location !== void 0) {
         location.id = this.locationService.getNextUniqueId();
         const oldLocations = Object.assign([], this.locations);
@@ -41,7 +41,7 @@ export class ListComponent implements OnInit {
           position: 'top',
           duration: 3000,
           cssClass: 'toastSuccess'
-        }).present();
+        });
       }
     });
   }
@@ -58,7 +58,7 @@ export class ListComponent implements OnInit {
             message: 'Your trip to ' + location.city + ' has been updated!',
             duration: 3000,
             cssClass: 'toastSuccess'
-          }).present();
+          }).then(toast => toast.present());
           break;
         }
       }
@@ -74,7 +74,7 @@ export class ListComponent implements OnInit {
           message: location.city + ' has been deleted.',
           duration: 3000,
           cssClass: 'toastSuccess'
-        }).present();
+        }).then(toast => toast.present());
         break;
       }
     }

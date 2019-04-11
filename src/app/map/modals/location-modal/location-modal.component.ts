@@ -1,4 +1,5 @@
 import { AfterViewInit, Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { ModalController, ToastController } from '@ionic/angular';
 import * as EmojiFlags from 'emoji-flags';
 import { CountryContinentEnum } from '../../countryContinentEnum';
@@ -22,7 +23,8 @@ export class LocationModalComponent implements AfterViewInit {
 
   constructor(
     private toastController: ToastController,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private route: ActivatedRoute
   ) {
   }
 
@@ -95,12 +97,14 @@ export class LocationModalComponent implements AfterViewInit {
   }
 
   private setInputParameters(): void {
-    this.title = <string>this.params.get('title');
-    this.submitLabel = <string>this.params.get('submitLabel');
-    const initialLocation = <Location>this.params.get('initialLocation');
-    if (initialLocation !== void 0) {
-      this.setInitialLocation(initialLocation);
-    }
+    this.route.params.subscribe(params => {
+      this.title = <string>params.get('title');
+      this.submitLabel = <string>params.get('submitLabel');
+      const initialLocation = <Location>params.get('initialLocation');
+      if (initialLocation !== void 0) {
+        this.setInitialLocation(initialLocation);
+      }
+    });
   }
 
   private setInitialLocation(location: Location): void {

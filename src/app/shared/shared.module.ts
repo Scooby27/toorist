@@ -1,12 +1,12 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { IonicModule } from '@ionic/angular';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { IonicModule } from 'ionic-angular';
-
 import { ErrorComponent } from './error.component';
-import { LoadingIndicatorComponent } from './loadingIndicator.component';
 import { LoadingService } from './loading.service';
+import { LoadingIndicatorComponent } from './loadingIndicator.component';
+
 
 @NgModule({
   declarations: [
