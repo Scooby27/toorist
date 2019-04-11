@@ -1,10 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ListComponent } from './map/list/list.component';
-import { MapComponent } from './map/map/map.component';
-import { StatsComponent } from './map/stats/stats.component';
-import { TimelineComponent } from './map/timeline/timeline.component';
-
+import { ListComponent } from './list/list.component';
+import { MapComponent } from './map/map.component';
+import { StatsComponent } from './stats/stats.component';
+import { TimelineComponent } from './timeline/timeline.component';
 const routes: Routes = [
     {
         path: '',
@@ -13,19 +12,19 @@ const routes: Routes = [
     },
     {
         path: 'map',
-        loadChildren: './map/map.module#MapModule'
+        component: MapComponent
     },
     {
         path: 'timeline',
-        loadChildren: './map/map.module#MapModule'
+        component: TimelineComponent
     },
     {
         path: 'list',
-        loadChildren: './map/map.module#MapModule'
+        component: ListComponent
     },
     {
         path: 'stats',
-        loadChildren: './map/map.module#MapModule'
+        component: StatsComponent
     }
 ];
 
@@ -33,4 +32,4 @@ const routes: Routes = [
     imports: [RouterModule.forRoot(routes, { onSameUrlNavigation: 'reload', urlUpdateStrategy: 'eager' })],
     exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class MapRoutingModule { }

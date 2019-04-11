@@ -6,9 +6,7 @@ import { Location } from './location';
 
 
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable()
 export class LocationService {
     private localStorageId = 'toorist-locations';
     private nextUniqueId = 0;

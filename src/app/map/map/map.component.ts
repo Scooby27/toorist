@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { ModalController, ToastController } from '@ionic/angular';
 import { Location } from '../location';
 import { LocationService } from '../location.service';
@@ -25,7 +26,8 @@ export class MapComponent implements OnInit {
     private locationService: LocationService,
     private modalController: ModalController,
     private toastController: ToastController,
-    private geolocation: Geolocation) {
+    private geolocation: Geolocation
+  ) {
   }
 
   ngOnInit(): void {
@@ -72,7 +74,7 @@ export class MapComponent implements OnInit {
   }
 
   private loadCurrentLocation(): void {
-    this.geolocation.watchPosition(position => {
+    this.geolocation.watchPosition().subscribe(position => {
       this.currentLocationObtained = true;
       this.currentLatitude = position.coords.latitude;
       this.currentLongitude = position.coords.longitude;
