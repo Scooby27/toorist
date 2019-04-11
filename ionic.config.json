@@ -1,0 +1,7 @@
+{
+  "name": "toorist",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

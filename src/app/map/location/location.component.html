@@ -10,7 +10,7 @@
         <ion-icon name="create"></ion-icon>
       </button>
     </div>
-    <div class="collapse locationBody" [ngbCollapse]="isCollapsed">
+    <div class="collapse locationBody" *ngIf="!isCollapsed">
       <form>
         <div>
           <label>You spent

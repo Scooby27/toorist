@@ -1,8 +1,8 @@
-import { Component, Input, EventEmitter, Output } from '@angular/core';
-import { ModalController } from 'ionic-angular/components/modal/modal-controller';
-
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 import { Location } from '../location';
 import { LocationModalComponent } from '../modals/location-modal/location-modal.component';
+
 
 @Component({
   selector: 'app-location',
@@ -14,20 +14,21 @@ export class LocationComponent {
   @Output() updateLocationEmitter = new EventEmitter<Location>();
   isCollapsed = true;
 
-  constructor(private modalCtrl: ModalController) {
+  constructor(private modalController: ModalController) {
   }
 
   toggleCollapse(): void {
     this.isCollapsed = !this.isCollapsed;
   }
 
-  edit(): void {
-    const locationModal = this.modalCtrl.create(
-      LocationModalComponent,
-      { title: 'Edit Location', submitLabel: 'Submit', initialLocation: this.location }
-    );
+  async edit(): Promise<void> {
+    const locationModal = await this.modalController.create({
+      component: LocationModalComponent,
+      componentProps: { title: 'Edit Location', submitLabel: 'Submit', initialLocation: this.location }
+    });
     locationModal.present();
-    locationModal.onWillDismiss((location: Location) => {
+    locationModal.onWillDismiss().then(detail => {
+      const location = detail.data;
       if (location !== void 0) {
         this.location = {...this.location, ...location};
         this.updateLocationEmitter.emit(this.location);

@@ -1,12 +1,14 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { GeocoderResponse } from './geocoderResponse';
 import { Location } from './location';
 
 
-@Injectable()
+
+@Injectable({
+    providedIn: 'root'
+})
 export class LocationService {
     private localStorageId = 'toorist-locations';
     private nextUniqueId = 0;

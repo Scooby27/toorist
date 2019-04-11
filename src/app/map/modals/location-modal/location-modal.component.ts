@@ -1,8 +1,6 @@
 import { AfterViewInit, Component } from '@angular/core';
+import { ModalController, ToastController } from '@ionic/angular';
 import * as EmojiFlags from 'emoji-flags';
-import { ToastController } from 'ionic-angular/components/toast/toast-controller';
-import { NavParams } from 'ionic-angular/navigation/nav-params';
-import { ViewController } from 'ionic-angular/navigation/view-controller';
 import { CountryContinentEnum } from '../../countryContinentEnum';
 import { Location } from '../../location';
 
@@ -22,8 +20,10 @@ export class LocationModalComponent implements AfterViewInit {
 
   private autoComplete: google.maps.places.Autocomplete;
 
-  constructor(private params: NavParams, private viewCtrl: ViewController,
-    private toastController: ToastController) {
+  constructor(
+    private toastController: ToastController,
+    private modalController: ModalController
+  ) {
   }
 
   ngAfterViewInit(): void {
@@ -67,7 +67,7 @@ export class LocationModalComponent implements AfterViewInit {
         }
       }
       location.continent = CountryContinentEnum[location.countryCode];
-      this.viewCtrl.dismiss(location);
+      this.modalController.dismiss(location);
       this.addMore = true;
       this.reset();
     } else {
@@ -76,7 +76,7 @@ export class LocationModalComponent implements AfterViewInit {
         position: 'bottom',
         duration: 3000,
         cssClass: 'toastError'
-      }).present();
+      }).then(toast => toast.present());
     }
   }
 
@@ -91,7 +91,7 @@ export class LocationModalComponent implements AfterViewInit {
   }
 
   closeModal(): void {
-    this.viewCtrl.dismiss();
+    this.modalController.dismiss();
   }
 
   private setInputParameters(): void {
