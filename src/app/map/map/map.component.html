@@ -1,5 +1,5 @@
 <div class="mapContainer" #map>
-  <agm-map [style.height.px]="map.offsetHeight - footer.offsetHeight" class="agm-map" [latitude]="latitude" [longitude]="longitude" [styles]="styles"
+  <agm-map [style.height.px]="map.offsetHeight - footer.el.offsetHeight" class="agm-map" [latitude]="latitude" [longitude]="longitude" [styles]="styles"
     [zoom]="zoom" [usePanning]="true" (zoomChange)="updateZoom($event)">
     <agm-marker *ngIf="currentLocationObtained" [iconUrl]="'./assets/img/currentLocationIcon.png'" [latitude]="currentLatitude"
       [longitude]="currentLongitude"></agm-marker>
@@ -7,12 +7,12 @@
       [title]="location.city"></agm-marker>
   </agm-map>
   <ion-footer #footer>
-    <button ion-item detail-none color="primary" class="addLocationButton" (click)="addLocation()">
+    <ion-button ion-item detail-none color="primary" class="addLocationButton" (click)="addLocation()">
       <ion-icon name="add"></ion-icon>
       <span>Add New Location</span>
-    </button>
+    </ion-button>
   </ion-footer>
-  <button class="btn btn-primary btn-sm map-current-location-btn" (click)="goToCurrentLocation()">
+  <ion-button class="btn btn-primary btn-sm map-current-location-btn" (click)="goToCurrentLocation()">
     <ion-icon name="navigate"></ion-icon>
-  </button>
+  </ion-button>
 </div>

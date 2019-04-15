@@ -6,9 +6,9 @@
         <ion-icon *ngIf="!isCollapsed" name="arrow-dropdown-circle"></ion-icon>
         {{location.city}}
       </span>
-      <button class="btn btn-lg btn-info float-right" (click)="edit()">
+      <ion-button class="btn btn-lg btn-info float-right" (click)="edit()">
         <ion-icon name="create"></ion-icon>
-      </button>
+      </ion-button>
     </div>
     <div class="collapse locationBody" *ngIf="!isCollapsed">
       <form>
@@ -17,15 +17,15 @@
             <strong class="alert alert-warning">{{totalDays()}}</strong> days here!</label>
         </div>
         <label>Country: {{location.countryName}} {{location.countryFlag}}</label>
-        <br/>
+        <br />
         <label>Continent: {{location.continent}}</label>
       </form>
     </div>
   </ion-item>
 
   <ion-item-options side="right" (ionSwipe)="deleteLocation()">
-    <button ion-button expandable color="danger" (click)="deleteLocation()">
+    <ion-button ion-button expandable color="danger" (click)="deleteLocation()">
       <ion-icon name="trash"></ion-icon>
-    </button>
+    </ion-button>
   </ion-item-options>
 </ion-item-sliding>
