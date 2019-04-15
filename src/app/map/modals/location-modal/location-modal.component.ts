@@ -1,5 +1,4 @@
 import { AfterViewInit, Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { ModalController, ToastController } from '@ionic/angular';
 import * as EmojiFlags from 'emoji-flags';
 import { CountryContinentEnum } from '../../countryContinentEnum';
@@ -18,13 +17,13 @@ export class LocationModalComponent implements AfterViewInit {
   title: string;
   submitLabel: string;
   defaultPlace: google.maps.places.PlaceResult;
+  initialLocation: Location;
 
   private autoComplete: google.maps.places.Autocomplete;
 
   constructor(
     private toastController: ToastController,
-    private modalController: ModalController,
-    private route: ActivatedRoute
+    private modalController: ModalController
   ) {
   }
 
@@ -97,14 +96,9 @@ export class LocationModalComponent implements AfterViewInit {
   }
 
   private setInputParameters(): void {
-    this.route.params.subscribe(params => {
-      this.title = <string>params.get('title');
-      this.submitLabel = <string>params.get('submitLabel');
-      const initialLocation = <Location>params.get('initialLocation');
-      if (initialLocation !== void 0) {
-        this.setInitialLocation(initialLocation);
-      }
-    });
+    if (this.initialLocation !== void 0) {
+      this.setInitialLocation(this.initialLocation);
+    }
   }
 
   private setInitialLocation(location: Location): void {

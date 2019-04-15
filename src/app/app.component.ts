@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { LandingComponent } from './core/landing/landing.component';
-import { LoadingService } from './shared/loading.service';
 import { MapComponent } from './map/map/map.component';
+import { LoadingService } from './shared/loading.service';
 
 
 @Component({
@@ -13,7 +12,7 @@ export class AppComponent implements OnInit {
   show = false;
   rootPage = MapComponent;
 
-  constructor (private loadingService: LoadingService) {
+  constructor(private loadingService: LoadingService) {
   }
 
   ngOnInit(): void {
