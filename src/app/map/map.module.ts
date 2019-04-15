@@ -1,4 +1,4 @@
-import { AgmCoreModule } from '@agm/core/core.module';
+import { AgmCoreModule } from '@agm/core';
 import { NgModule } from '@angular/core';
 import { DatePicker } from '@ionic-native/date-picker/ngx';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
@@ -28,7 +28,7 @@ import { TimelineComponent } from './timeline/timeline.component';
     SharedModule,
     MapRoutingModule,
     IonicModule,
-    AgmCoreModule.forRoot({ apiKey: 'AIzaSyCN0d30qHE_S9CkDarkURUAzis4L1Tfzfw', libraries: ['places'] })
+    AgmCoreModule.forRoot({ apiKey: 'AIzaSyAkEMED48bgfngouGNnnBuo8A96zhgZuoU', libraries: ['places'] })
   ],
   exports: [
     MapComponent
