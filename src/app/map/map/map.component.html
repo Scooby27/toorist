@@ -1,18 +1,19 @@
-<div class="mapContainer" #map>
-  <agm-map [style.height.px]="map.offsetHeight - footer.el.offsetHeight" class="agm-map" [latitude]="latitude" [longitude]="longitude" [styles]="styles"
-    [zoom]="zoom" [usePanning]="true" (zoomChange)="updateZoom($event)">
-    <agm-marker *ngIf="currentLocationObtained" [iconUrl]="'./assets/img/currentLocationIcon.png'" [latitude]="currentLatitude"
-      [longitude]="currentLongitude"></agm-marker>
-    <agm-marker *ngFor="let location of locations" [iconUrl]="'./assets/img/flagIcon.png'" [latitude]="location.latitude" [longitude]="location.longitude"
-      [title]="location.city"></agm-marker>
+<div class="mapContainer" style="height: 100%" #map>
+  <agm-map [style.height.px]="map.offsetHeight - 50" class="agm-map" [latitude]="latitude" [longitude]="longitude"
+    [styles]="styles" [zoom]="zoom" [usePanning]="true" (zoomChange)="updateZoom($event)">
+    <agm-marker *ngIf="currentLocationObtained" [iconUrl]="'./assets/img/currentLocationIcon.png'"
+      [latitude]="currentLatitude" [longitude]="currentLongitude"></agm-marker>
+    <agm-marker *ngFor="let location of locations" [iconUrl]="'./assets/img/flagIcon.png'"
+      [latitude]="location.latitude" [longitude]="location.longitude" [title]="location.city"></agm-marker>
   </agm-map>
-  <ion-footer #footer>
-    <ion-button ion-item detail-none color="primary" class="addLocationButton" (click)="addLocation()">
+  <ion-fab vertical="top" horizontal="end" slot="fixed">
+    <ion-fab-button color="primary" (click)="addLocation()">
       <ion-icon name="add"></ion-icon>
-      <span>Add New Location</span>
-    </ion-button>
-  </ion-footer>
-  <ion-button class="btn btn-primary btn-sm map-current-location-btn" (click)="goToCurrentLocation()">
-    <ion-icon name="navigate"></ion-icon>
-  </ion-button>
+    </ion-fab-button>
+  </ion-fab>
+  <ion-fab vertical="bottom" horizontal="start" slot="fixed">
+    <ion-fab-button color="primary" (click)="goToCurrentLocation()">
+      <ion-icon name="navigate"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </div>
