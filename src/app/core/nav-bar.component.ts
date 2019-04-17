@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-nav-bar',
@@ -9,10 +9,10 @@ import { Router } from '@angular/router';
 
 export class NavBarComponent {
 
-  constructor(private router: Router) {
+  constructor(private navController: NavController) {
   }
 
   navigateTo(url: string): void {
-    this.router.navigate(['/' + url]);
+    this.navController.navigateForward('/' + url);
   }
 }
