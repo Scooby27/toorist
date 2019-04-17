@@ -13,6 +13,6 @@ export class NavBarComponent {
   }
 
   navigateTo(url: string): void {
-    this.router.navigateByUrl(url);
+    this.router.navigate(['/' + url]);
   }
 }

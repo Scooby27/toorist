@@ -6,11 +6,6 @@ import { StatsComponent } from './stats/stats.component';
 import { TimelineComponent } from './timeline/timeline.component';
 const routes: Routes = [
     {
-        path: '',
-        redirectTo: 'map',
-        pathMatch: 'full'
-    },
-    {
         path: 'map',
         component: MapComponent
     },
@@ -29,7 +24,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes, { onSameUrlNavigation: 'reload', urlUpdateStrategy: 'eager' })],
+    imports: [RouterModule.forChild(routes)],
     exports: [RouterModule]
 })
 export class MapRoutingModule { }

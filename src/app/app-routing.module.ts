@@ -13,19 +13,19 @@ const routes: Routes = [
     },
     {
         path: 'map',
-        loadChildren: './map/map.module#MapModule'
+        component: MapComponent
     },
     {
         path: 'timeline',
-        loadChildren: './map/map.module#MapModule'
+        component: TimelineComponent
     },
     {
         path: 'list',
-        loadChildren: './map/map.module#MapModule'
+        component: ListComponent
     },
     {
         path: 'stats',
-        loadChildren: './map/map.module#MapModule'
+        component: StatsComponent
     }
 ];
 
