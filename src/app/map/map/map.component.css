@@ -6,13 +6,3 @@
 .agm-map {
     width: 100%;
 }
-
-.map-current-location-btn {
-    position: fixed;
-    top: 80%;
-    left: 1%;
-}
-
-.addLocationButton {
-    width: 100%;
-}

@@ -1,6 +1,6 @@
-<div class="mapContainer" style="height: 100%" #map>
-  <agm-map [style.height.px]="map.offsetHeight - 50" class="agm-map" [latitude]="latitude" [longitude]="longitude"
-    [styles]="styles" [zoom]="zoom" [usePanning]="true" (zoomChange)="updateZoom($event)">
+<div class="mapContainer" #map>
+  <agm-map [style.height.px]="map.offsetHeight - headerHeight" class="agm-map" [latitude]="latitude"
+    [longitude]="longitude" [styles]="styles" [zoom]="zoom" [usePanning]="true" (zoomChange)="updateZoom($event)">
     <agm-marker *ngIf="currentLocationObtained" [iconUrl]="'./assets/img/currentLocationIcon.png'"
       [latitude]="currentLatitude" [longitude]="currentLongitude"></agm-marker>
     <agm-marker *ngFor="let location of locations" [iconUrl]="'./assets/img/flagIcon.png'"
@@ -11,8 +11,8 @@
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
-  <ion-fab vertical="bottom" horizontal="start" slot="fixed">
-    <ion-fab-button color="primary" (click)="goToCurrentLocation()">
+  <ion-fab vertical="top" horizontal="start" slot="fixed">
+    <ion-fab-button size="small" color="primary" (click)="goToCurrentLocation()">
       <ion-icon name="navigate"></ion-icon>
     </ion-fab-button>
   </ion-fab>

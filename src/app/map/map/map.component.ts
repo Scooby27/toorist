@@ -21,6 +21,7 @@ export class MapComponent implements OnInit {
   zoom: number;
   currentLocationObtained = false;
   styles = MapStyles.orange;
+  headerHeight = document.getElementById('header').offsetHeight;
 
   constructor(
     private locationService: LocationService,

@@ -1,7 +1,7 @@
-<ion-header>
+<ion-header id="header">
   <app-nav-bar></app-nav-bar>
 </ion-header>
 <ion-content>
   <ion-nav [root]="rootPage"></ion-nav>
-  <app-shared-loadingindicator *ngIf="show"></app-shared-loadingindicator>
 </ion-content>
+<app-shared-loadingindicator *ngIf="show"></app-shared-loadingindicator>
