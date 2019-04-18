@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
-import { ModalController, ToastController } from '@ionic/angular';
+import { ModalController, Platform, ToastController } from '@ionic/angular';
 import { Location } from '../location';
 import { LocationService } from '../location.service';
 import { MapStyles } from '../mapStyles';
@@ -18,7 +18,7 @@ export class MapComponent implements OnInit {
   currentLongitude = 0;
   currentLocation: Location;
   locations: Array<Location>;
-  zoom: number;
+  zoom = 2;
   currentLocationObtained = false;
   styles = MapStyles.orange;
   headerHeight = document.getElementById('header').offsetHeight;
@@ -27,14 +27,16 @@ export class MapComponent implements OnInit {
     private locationService: LocationService,
     private modalController: ModalController,
     private toastController: ToastController,
-    private geolocation: Geolocation
+    private geolocation: Geolocation,
+    private platform: Platform
   ) {
   }
 
   ngOnInit(): void {
-    this.zoom = 2;
-    this.locations = this.locationService.getStoredLocations();
-    this.loadCurrentLocation();
+    this.platform.ready().then(() => {
+      this.locations = this.locationService.getStoredLocations();
+      this.loadCurrentLocation();
+    });
   }
 
   goToCurrentLocation(): void {
@@ -84,7 +86,7 @@ export class MapComponent implements OnInit {
   }
 
   private updateCurrentLocation(): void {
-    this.locationService.getLocation(this.currentLatitude, this.currentLongitude).subscribe((response) => {
+    this.locationService.getLocation(this.currentLatitude, this.currentLongitude).subscribe(response => {
       if (response.status === google.maps.GeocoderStatus.OK && response.results[0] !== void 0) {
         this.currentLocation = new Location();
         this.currentLocation.city = response.results[0].formatted_address;

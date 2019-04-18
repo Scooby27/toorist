@@ -1,9 +1,8 @@
 import { AfterViewInit, Component } from '@angular/core';
-import { ModalController, ToastController } from '@ionic/angular';
+import { ModalController, Platform, ToastController } from '@ionic/angular';
 import { Location } from '../location';
 import { LocationService } from '../location.service';
 import { LocationModalComponent } from '../modals/location-modal/location-modal.component';
-
 
 declare var google: any;
 
@@ -27,13 +26,16 @@ export class StatsComponent implements AfterViewInit {
   constructor(
     private locationService: LocationService,
     private modalCtrl: ModalController,
-    private toastController: ToastController) {
-  }
+    private toastController: ToastController,
+    private platform: Platform
+  ) { }
 
   ngAfterViewInit(): void {
-    this.resizeChart();
-    this.loadLocations();
-    this.drawMap();
+    this.platform.ready().then(() => {
+      this.resizeChart();
+      this.loadLocations();
+      this.drawMap();
+    });
   }
 
   async addLocation(): Promise<void> {
@@ -130,6 +132,7 @@ export class StatsComponent implements AfterViewInit {
         ]
       ]);
 
+      const none: 'none' = 'none';
       const options = {
         resolution: 'continents',
         colorAxis: {
@@ -140,7 +143,7 @@ export class StatsComponent implements AfterViewInit {
           enable: true,
           zoomFactor: 100
         },
-        legend: 'none'
+        legend: none
       };
       const chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
       chart.draw(data, options);
