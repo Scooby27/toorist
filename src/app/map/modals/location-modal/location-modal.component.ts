@@ -1,4 +1,4 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { ModalController, ToastController } from '@ionic/angular';
 import * as EmojiFlags from 'emoji-flags';
 import { CountryContinentEnum } from '../../countryContinentEnum';
@@ -10,7 +10,7 @@ import { Location } from '../../location';
   templateUrl: './location-modal.component.html',
   styleUrls: ['./location-modal.component.css']
 })
-export class LocationModalComponent implements AfterViewInit {
+export class LocationModalComponent {
   addMore = false;
   startDate: string;
   endDate: string;
@@ -27,7 +27,7 @@ export class LocationModalComponent implements AfterViewInit {
   ) {
   }
 
-  ngAfterViewInit(): void {
+  ionViewDidEnter(): void {
     this.setInputParameters();
     const options = {
       types: ['(cities)']
