@@ -1,8 +1,6 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { Component } from '@angular/core';
+import { ModalController, ToastController } from '@ionic/angular';
 import * as EmojiFlags from 'emoji-flags';
-import { ToastController } from 'ionic-angular/components/toast/toast-controller';
-import { NavParams } from 'ionic-angular/navigation/nav-params';
-import { ViewController } from 'ionic-angular/navigation/view-controller';
 import { CountryContinentEnum } from '../../countryContinentEnum';
 import { Location } from '../../location';
 
@@ -12,21 +10,24 @@ import { Location } from '../../location';
   templateUrl: './location-modal.component.html',
   styleUrls: ['./location-modal.component.css']
 })
-export class LocationModalComponent implements AfterViewInit {
+export class LocationModalComponent {
   addMore = false;
   startDate: string;
   endDate: string;
   title: string;
   submitLabel: string;
   defaultPlace: google.maps.places.PlaceResult;
+  initialLocation: Location;
 
   private autoComplete: google.maps.places.Autocomplete;
 
-  constructor(private params: NavParams, private viewCtrl: ViewController,
-    private toastController: ToastController) {
+  constructor(
+    private toastController: ToastController,
+    private modalController: ModalController
+  ) {
   }
 
-  ngAfterViewInit(): void {
+  ionViewDidEnter(): void {
     this.setInputParameters();
     const options = {
       types: ['(cities)']
@@ -67,7 +68,7 @@ export class LocationModalComponent implements AfterViewInit {
         }
       }
       location.continent = CountryContinentEnum[location.countryCode];
-      this.viewCtrl.dismiss(location);
+      this.modalController.dismiss(location);
       this.addMore = true;
       this.reset();
     } else {
@@ -76,7 +77,7 @@ export class LocationModalComponent implements AfterViewInit {
         position: 'bottom',
         duration: 3000,
         cssClass: 'toastError'
-      }).present();
+      }).then(toast => toast.present());
     }
   }
 
@@ -91,15 +92,12 @@ export class LocationModalComponent implements AfterViewInit {
   }
 
   closeModal(): void {
-    this.viewCtrl.dismiss();
+    this.modalController.dismiss();
   }
 
   private setInputParameters(): void {
-    this.title = <string>this.params.get('title');
-    this.submitLabel = <string>this.params.get('submitLabel');
-    const initialLocation = <Location>this.params.get('initialLocation');
-    if (initialLocation !== void 0) {
-      this.setInitialLocation(initialLocation);
+    if (this.initialLocation !== void 0) {
+      this.setInitialLocation(this.initialLocation);
     }
   }
 

@@ -1,18 +1,19 @@
 <div class="mapContainer" #map>
-  <agm-map [style.height.px]="map.offsetHeight - footer.offsetHeight" class="agm-map" [latitude]="latitude" [longitude]="longitude" [styles]="styles"
-    [zoom]="zoom" [usePanning]="true" (zoomChange)="updateZoom($event)">
-    <agm-marker *ngIf="currentLocationObtained" [iconUrl]="'./assets/img/currentLocationIcon.png'" [latitude]="currentLatitude"
-      [longitude]="currentLongitude"></agm-marker>
-    <agm-marker *ngFor="let location of locations" [iconUrl]="'./assets/img/flagIcon.png'" [latitude]="location.latitude" [longitude]="location.longitude"
-      [title]="location.city"></agm-marker>
+  <agm-map [style.height.px]="map.offsetHeight - headerHeight" class="agm-map" [latitude]="latitude"
+    [longitude]="longitude" [styles]="styles" [zoom]="zoom" [usePanning]="true" (zoomChange)="updateZoom($event)">
+    <agm-marker *ngIf="currentLocationObtained" [iconUrl]="'./assets/img/currentLocationIcon.png'"
+      [latitude]="currentLatitude" [longitude]="currentLongitude"></agm-marker>
+    <agm-marker *ngFor="let location of locations" [iconUrl]="'./assets/img/flagIcon.png'"
+      [latitude]="location.latitude" [longitude]="location.longitude" [title]="location.city"></agm-marker>
   </agm-map>
-  <ion-footer #footer>
-    <button ion-item detail-none color="primary" class="addLocationButton" (click)="addLocation()">
+  <ion-fab vertical="top" horizontal="end" slot="fixed">
+    <ion-fab-button color="primary" (click)="addLocation()">
       <ion-icon name="add"></ion-icon>
-      <span>Add New Location</span>
-    </button>
-  </ion-footer>
-  <button class="btn btn-primary btn-sm map-current-location-btn" (click)="goToCurrentLocation()">
-    <ion-icon name="navigate"></ion-icon>
-  </button>
+    </ion-fab-button>
+  </ion-fab>
+  <ion-fab vertical="top" horizontal="start" slot="fixed">
+    <ion-fab-button size="small" color="primary" (click)="goToCurrentLocation()">
+      <ion-icon name="navigate"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </div>

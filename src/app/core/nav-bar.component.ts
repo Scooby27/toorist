@@ -1,10 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { App } from 'ionic-angular/components/app/app';
-
-import { MapComponent } from '../map/map/map.component';
-import { ListComponent } from '../map/list/list.component';
-import { StatsComponent } from '../map/stats/stats.component';
-import { TimelineComponent } from '../map/timeline/timeline.component';
+import { Component } from '@angular/core';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-nav-bar',
@@ -12,23 +7,12 @@ import { TimelineComponent } from '../map/timeline/timeline.component';
   templateUrl: './nav-bar.component.html'
 })
 
-export class NavBarComponent implements OnInit {
-  components;
+export class NavBarComponent {
 
-  constructor(private appCtrl: App) {
+  constructor(private navController: NavController) {
   }
 
-  ngOnInit(): void {
-    this.components = {
-      map: MapComponent,
-      list: ListComponent,
-      stats: StatsComponent,
-      timeline: TimelineComponent
-    };
-  }
-
-  navigateTo(component): void {
-    this.appCtrl.getRootNavs()[0].popToRoot();
-    this.appCtrl.getRootNavs()[0].push(component);
+  navigateTo(url: string): void {
+    this.navController.navigateForward('/' + url);
   }
 }

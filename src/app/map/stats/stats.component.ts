@@ -1,9 +1,7 @@
-import { Component, AfterViewInit } from '@angular/core';
-import { ModalController } from 'ionic-angular/components/modal/modal-controller';
-import { ToastController } from 'ionic-angular/components/toast/toast-controller';
-
-import { LocationService } from '../location.service';
+import { AfterViewInit, Component } from '@angular/core';
+import { ModalController, Platform, ToastController } from '@ionic/angular';
 import { Location } from '../location';
+import { LocationService } from '../location.service';
 import { LocationModalComponent } from '../modals/location-modal/location-modal.component';
 
 declare var google: any;
@@ -28,22 +26,26 @@ export class StatsComponent implements AfterViewInit {
   constructor(
     private locationService: LocationService,
     private modalCtrl: ModalController,
-    private toastController: ToastController) {
-  }
+    private toastController: ToastController,
+    private platform: Platform
+  ) { }
 
   ngAfterViewInit(): void {
-    this.resizeChart();
-    this.loadLocations();
-    this.drawMap();
+    this.platform.ready().then(() => {
+      this.resizeChart();
+      this.loadLocations();
+      this.drawMap();
+    });
   }
 
-  addLocation(): void {
-    const locationModal = this.modalCtrl.create(
-      LocationModalComponent,
-      { title: 'Add Location', submitLabel: 'Add' }
-    );
+  async addLocation(): Promise<void> {
+    const locationModal = await this.modalCtrl.create({
+      component: LocationModalComponent,
+      componentProps: { title: 'Add Location', submitLabel: 'Add' }
+    });
     locationModal.present();
-    locationModal.onWillDismiss((location: Location) => {
+    locationModal.onWillDismiss().then(detail => {
+      const location = detail.data;
       if (location !== void 0) {
         location.id = this.locationService.getNextUniqueId();
         const oldLocations = Object.assign([], this.locations);
@@ -58,7 +60,7 @@ export class StatsComponent implements AfterViewInit {
           position: 'top',
           duration: 3000,
           cssClass: 'toastSuccess'
-        }).present();
+        }).then(toast => toast.present());
         this.drawMap();
       }
     });
@@ -130,6 +132,7 @@ export class StatsComponent implements AfterViewInit {
         ]
       ]);
 
+      const none: 'none' = 'none';
       const options = {
         resolution: 'continents',
         colorAxis: {
@@ -140,7 +143,7 @@ export class StatsComponent implements AfterViewInit {
           enable: true,
           zoomFactor: 100
         },
-        legend: 'none'
+        legend: none
       };
       const chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
       chart.draw(data, options);

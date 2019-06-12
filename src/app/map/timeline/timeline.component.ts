@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-
-import { LocationService } from '../location.service';
 import { Location } from '../location';
+import { LocationService } from '../location.service';
+
 
 @Component({
   selector: 'app-timeline',

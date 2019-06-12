@@ -6,9 +6,9 @@
     <app-location *ngFor="let location of locations" [location]="location" (updateLocationEmitter)="updateLocation($event)"></app-location>
   </ion-list>
   <ion-footer>
-    <button ion-item detail-none color="primary" class="addLocationButton" (click)="addLocation()">
+    <ion-button detail-none color="primary" class="addLocationButton" (click)="addLocation()">
       <ion-icon name="add"></ion-icon>
       <span>Add New Location</span>
-    </button>
+    </ion-button>
   </ion-footer>
 </div>

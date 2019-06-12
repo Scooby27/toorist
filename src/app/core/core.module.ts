@@ -1,18 +1,18 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { IonicModule } from 'ionic-angular/module';
-
-import { NavBarComponent } from './nav-bar.component';
+import { NgModule } from '@angular/core';
+import { IonicModule } from '@ionic/angular';
 import { ApiService } from './apiService';
 import { LandingComponent } from './landing/landing.component';
+import { NavBarComponent } from './nav-bar.component';
+
 
 @NgModule({
-  imports: [ CommonModule, HttpClientModule, IonicModule.forRoot(NavBarComponent) ],
-  exports: [ NavBarComponent ],
-  declarations: [ NavBarComponent, LandingComponent ],
+  imports: [CommonModule, HttpClientModule, IonicModule],
+  exports: [NavBarComponent],
+  declarations: [NavBarComponent, LandingComponent],
   entryComponents: [LandingComponent],
-  providers: [ ApiService ]
+  providers: [ApiService]
 })
 
 export class CoreModule { }

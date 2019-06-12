@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { GeocoderResponse } from './geocoderResponse';
 import { Location } from './location';
+
 
 
 @Injectable()
@@ -16,7 +16,11 @@ export class LocationService {
     }
 
     getLocation(latitude: number, longitude: number): Observable<GeocoderResponse> {
-        return this.http.get<GeocoderResponse>('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latitude + ',' + longitude);
+        return this.http.get<GeocoderResponse>(
+            'https://maps.googleapis.com/maps/api/geocode/json?latlng=' +
+            latitude + ',' + longitude +
+            '&key=AIzaSyAkEMED48bgfngouGNnnBuo8A96zhgZuoU'
+        );
     }
 
     getStoredLocations(): Array<Location> {
