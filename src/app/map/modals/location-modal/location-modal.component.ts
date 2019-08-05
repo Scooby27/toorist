@@ -18,8 +18,8 @@ export class LocationModalComponent {
   submitLabel: string;
   defaultPlace: google.maps.places.PlaceResult;
   initialLocation: Location;
-
-  private autoComplete: google.maps.places.Autocomplete;
+  autoComplete: google.maps.places.Autocomplete;
+  cityName: string;
 
   constructor(
     private toastController: ToastController,
@@ -36,17 +36,24 @@ export class LocationModalComponent {
     const input = this.getAutoCompleteInputElement();
     this.autoComplete = new google.maps.places.Autocomplete(input, options);
 
-    if (navigator.userAgent.match(/(iPad|iPhone|iPod)/g)) {
-      setTimeout(() => {
-        const container = document.getElementsByClassName('pac-container')[0];
-        container.addEventListener('touchend', (e) => {
+    google.maps.event.addListener(this.autoComplete, 'place_changed', () => {
+      const place = this.autoComplete.getPlace();
+      if (place) {
+        this.cityName = place.name;
+      }
+    });
+
+    setTimeout(() => {
+      const container = document.getElementsByClassName('pac-container')[0];
+      container.addEventListener('touchend', (e) => {
+        setTimeout(() => {
+        }, 100);
+        if (navigator.userAgent.match(/(iPad|iPhone|iPod)/g)) {
           e.stopImmediatePropagation();
-        });
-      }, 500);
-    }
-
+        }
+      });
+    }, 500);
   }
-
 
   addLocation(): void {
     let placeResult = this.autoComplete.getPlace();

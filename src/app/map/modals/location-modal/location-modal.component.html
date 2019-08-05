@@ -8,7 +8,7 @@
   <form>
     <ion-item>
       <ion-label stacked>Where have you been?</ion-label>
-      <ion-input autofocus id="autocomplete" placeholder="Type to search..." type="text"></ion-input>
+      <ion-input autofocus id="autocomplete" placeholder="Type to search..." type="text" [ngModel]="cityName" [ngModelOptions]="{standalone: true}"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label>When did you go?</ion-label>
