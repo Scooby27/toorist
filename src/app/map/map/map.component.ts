@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewChecked, Component, OnInit } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { ModalController, Platform, ToastController } from '@ionic/angular';
 import { Location } from '../location';
@@ -11,7 +11,7 @@ import { LocationModalComponent } from '../modals/location-modal/location-modal.
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css']
 })
-export class MapComponent implements OnInit {
+export class MapComponent implements OnInit, AfterViewChecked {
   latitude = 0;
   longitude = 0;
   currentLatitude = 0;
@@ -21,7 +21,7 @@ export class MapComponent implements OnInit {
   zoom = 2;
   currentLocationObtained = false;
   styles = MapStyles.orange;
-  headerHeight = document.getElementById('header').offsetHeight;
+  headerHeight = 0;
 
   constructor(
     private locationService: LocationService,
@@ -37,6 +37,13 @@ export class MapComponent implements OnInit {
       this.locations = this.locationService.getStoredLocations();
       this.loadCurrentLocation();
     });
+  }
+
+  ngAfterViewChecked(): void {
+    const headerHeight = document.getElementById('header').offsetHeight;
+    if (headerHeight !== this.headerHeight) {
+      this.headerHeight = headerHeight;
+    }
   }
 
   goToCurrentLocation(): void {
